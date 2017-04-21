@@ -38,7 +38,29 @@ sagebrush.oct14.Hz20.Ux = rearrangeHeights_sagebrush(Data2(:,5:5:25));
 sagebrush.oct14.Hz20.Uy = rearrangeHeights_sagebrush(Data2(:,6:5:26));
 sagebrush.oct14.Hz20.Uz = rearrangeHeights_sagebrush(Data2(:,7:5:27));
 clear Data1 Data2;
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%rotate the velocities, calculate fluctuations from the mean, wind speed
+%and wind direction
+N = length(sagebrush.oct14.Hz20.Ux(:,1)); %number of data points
+freq = 20; % [Hz]
+period = N/freq; %period of interest [seconds]
+[ sagebrush.oct14.Hz20.Ux, sagebrush.oct14.Hz20.Uy, sagebrush.oct14.Hz20.Uz,...
+    sagebrush.oct14.Hz20.Ux_fluct, sagebrush.oct14.Hz20.Uy_fluct,...
+    sagebrush.oct14.Hz20.Uz_fluct, sagebrush.oct14.Hz20.ws_wd ] = ...
+    rotate_data( freq,period,N, sagebrush.oct14.Hz20.Ux, sagebrush.oct14.Hz20.Uy, ...
+    sagebrush.oct14.Hz20.Uz, length(sagebrush_z) );
+
+N = length(playa.oct14.Hz20.Ux(:,1));
+[ playa.oct14.Hz20.Ux, playa.oct14.Hz20.Uy, playa.oct14.Hz20.Uz,...
+    playa.oct14.Hz20.Ux_fluct, playa.oct14.Hz20.Uy_fluct,...
+    playa.oct14.Hz20.Uz_fluct, playa.oct14.Hz20.ws_wd ] = ...
+    rotate_data( freq,period,N, playa.oct14.Hz20.Ux, playa.oct14.Hz20.Uy,...
+    playa.oct14.Hz20.Uz,length(playa_z) );
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Load data on the 18th
+
 % % Playa T, RH, and U for Playa on October 18th in descending height
 % Data1 = load('./PlayaDataOct18_2012/CSV_1341.Playa_1HZ_2012_10_18_0000.dat');
 % Data2 = load('./PlayaDataOct18_2012/CSV_1341.Playa_20HZ_2012_10_18_0000.dat');
