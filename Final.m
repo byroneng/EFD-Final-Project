@@ -195,7 +195,38 @@ end
 % 3. Autocorrelation: Calculate the autocorrelation of at least one 30-minute period. What does this
 % indicate?
 
+%Auto corr on u v and w
+chunk = 30*60*20;
+num_chuck = 12;
+t_start = chunk*num_chuck;
+t_end = t_start+chunk;
+tic
+for z = 1:length(sagebrush_z)
+    sagebrush.oct14.Hz20.Ux_autocorr(:,z) = AutoCorrelation(sagebrush.oct14.Hz20.Ux(t_start:t_end,z));
+    sagebrush.oct14.Hz20.Uy_autocorr(:,z) = AutoCorrelation(sagebrush.oct14.Hz20.Uy(t_start:t_end,z));
+    sagebrush.oct14.Hz20.Uz_autocorr(:,z) = AutoCorrelation(sagebrush.oct14.Hz20.Uz(t_start:t_end,z));
+end
 
+
+for z = 1:length(playa_z)
+    playa.oct14.Hz20.Ux_autocorr(:,z) = AutoCorrelation(playa.oct14.Hz20.Ux(t_start:t_end,z));
+    playa.oct14.Hz20.Uy_autocorr(:,z) = AutoCorrelation(playa.oct14.Hz20.Uy(t_start:t_end,z));
+    playa.oct14.Hz20.Uz_autocorr(:,z) = AutoCorrelation(playa.oct14.Hz20.Uz(t_start:t_end,z));
+end
+
+%Auto corr on T
+chunk = 30*60*1;
+num_chuck = 12;
+t_start = chunk*num_chuck;
+t_end = t_start+chunk;
+for z = 1:length(sagebrush_z)
+    sagebrush.oct14.Hz1.T_autocorr(:,z) = AutoCorrelation(sagebrush.oct14.Hz1.T(t_start:t_end,z));
+end
+for z = 1:length(playa_z)
+    playa.oct14.Hz1.T_autocorr(:,z) = AutoCorrelation(playa.oct14.Hz1.T(t_start:t_end,z));
+end
+toc
+% 
 %% 4. 
 % Dissipation: Using Taylor?s frozen turbulence hypothesis, calculate the dissipation rate of turbulent
 % kinetic energy for several 30-minute periods. Calculate the Kolmogorov length scale.

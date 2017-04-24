@@ -124,7 +124,7 @@ for c = 1:floor((N_1hz/chunk))
     end
     cnt = cnt+chunk;
 end
-%%
+
 chunk = 60*30*20;
 N_1hz = length(sagebrush.oct14.Hz20.Ux(:,1));
 for c = 1:floor((N_1hz/chunk))
@@ -188,13 +188,36 @@ for c = 1:floor((N_1hz/chunk))
     cnt = cnt+chunk;
 end
 
-
+%% NEED to decide which 30 minute chunk we want to analyze, - then calc 3rd and 4th moment.
+%... Will think, probably a convective period during the day
 
 %%
 % 3. Autocorrelation: Calculate the autocorrelation of at least one 30-minute period. What does this
 % indicate?
 
+%Auto corr on u v and w
+chunk = 30*60*20;
+num_chuck = 12;
+t_start = chunk*num_chuck;
+t_end = t_start+chunk;
+tic
+sagebrush.oct14.Hz20.Ux_autocorr = AutoCorrelation(sagebrush.oct14.Hz20.Ux(t_start:t_end));
 
+sagebrush.oct14.Hz20.Uy_autocorr = AutoCorrelation(sagebrush.oct14.Hz20.Uy(t_start:t_end));
+sagebrush.oct14.Hz20.Uz_autocorr = AutoCorrelation(sagebrush.oct14.Hz20.Uz(t_start:t_end));
+playa.oct14.Hz20.Ux_autocorr = AutoCorrelation(playa.oct14.Hz20.Ux(t_start:t_end));
+playa.oct14.Hz20.Uy_autocorr = AutoCorrelation(playa.oct14.Hz20.Uy(t_start:t_end));
+playa.oct14.Hz20.Uz_autocorr = AutoCorrelation(playa.oct14.Hz20.Uz(t_start:t_end));
+
+%Auto corr on T
+chunk = 30*60*1;
+num_chuck = 12;
+t_start = chunk*num_chuck;
+t_end = t_start+chunk;
+sagebrush.oct14.Hz1.T_autocorr = AutoCorrelation(sagebrush.oct14.Hz1.T(t_start:t_end));
+playa.oct14.Hz1.T_autocorr = AutoCorrelation(playa.oct14.Hz1.T(t_start:t_end));
+toc
+% 
 %% 4. 
 % Dissipation: Using Taylor?s frozen turbulence hypothesis, calculate the dissipation rate of turbulent
 % kinetic energy for several 30-minute periods. Calculate the Kolmogorov length scale.
