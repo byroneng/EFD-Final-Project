@@ -3,8 +3,9 @@ function [ var ] = rearrangeHeights_playa( var )
 %   Detailed explanation goes here
 
 temp=var;
-var(:,2)=temp(:,5);
-var(:,3)=temp(:,2);
+var(:,3)=temp(:,6);
 var(:,4)=temp(:,3);
-var(:,5)=temp(:,5);
+var(:,5)=temp(:,4);
+var(:,6)=temp(:,5);
 end
+
