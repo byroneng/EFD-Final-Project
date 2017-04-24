@@ -34,7 +34,7 @@ for z = 1:num_heights
         
     end
     cnt = 1;
-    for c = 1:floor((Npoints/detrend_chunk))-2
+    for c = 1:floor((Npoints/detrend_chunk))
         % ... calculate the averages
         mu(cnt:cnt+detrend_chunk,z) = nanmean(u(cnt:cnt+detrend_chunk,z));
         mv(cnt:cnt+detrend_chunk,z) = nanmean(v(cnt:cnt+detrend_chunk,z));
@@ -64,9 +64,7 @@ for z = 1:num_heights
         w_rot(cnt:cnt+detrend_chunk,z) = -u1(cnt:cnt+detrend_chunk,z).*sind(beta(cnt:cnt+detrend_chunk,z))+w1(cnt:cnt+detrend_chunk,z).*cosd(beta(cnt:cnt+detrend_chunk,z));
         % End of rotation
         %------------------------------------------------------
-        % ... calculate the deviations from the mean by detrending the signal
-        
-    
+        % ... calculate the deviations from the mean by detrending the signal 
         u_flut(cnt:cnt+detrend_chunk,z)= detrend_nan(u_rot(cnt:cnt+detrend_chunk,z));
         v_flut(cnt:cnt+detrend_chunk,z)= detrend_nan(v_rot(cnt:cnt+detrend_chunk,z));
         w_flut(cnt:cnt+detrend_chunk,z) = detrend_nan(w_rot(cnt:cnt+detrend_chunk,z));

@@ -22,6 +22,8 @@ sagebrush_z = [18.6 10.15 5.87 2.04 0.55]; %Sagebrush tower sensor heights [m]
 % Playa T, RH, and U for Playa on October 14th in descending height
 Data1 = load('./SonicData/Playa Data1415/CSV_1341.Playa_1HZ_2012_10_14_0000.dat');
 Data2 = load('./SonicData/Playa Data1415/CSV_1341.Playa_20HZ_2012_10_14_0000.dat');
+t =reshape(Data1(:,1:4),[],4);
+
 playa.oct14.Hz1.T = Data1(:,5:2:end-1);
 playa.oct14.Hz1.RH = Data1(:,6:2:end);
 playa.oct14.Hz20.Ux = rearrangeHeights_playa(Data2(:,5:5:30));
@@ -38,6 +40,8 @@ sagebrush.oct14.Hz20.Ux = rearrangeHeights_sagebrush(Data2(:,5:5:25));
 sagebrush.oct14.Hz20.Uy = rearrangeHeights_sagebrush(Data2(:,6:5:26));
 sagebrush.oct14.Hz20.Uz = rearrangeHeights_sagebrush(Data2(:,7:5:27));
 clear Data1 Data2;
+
+
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %rotate the velocities, calculate fluctuations from the mean, wind speed
@@ -52,7 +56,7 @@ detrend_chunk = 60*30*20; %number of points we detrend from (30 min)
     sagebrush.oct14.Hz20.Uz_fluct, sagebrush.oct14.Hz20.ws_wd ] = ...
     rotate_data( freq,period,N, sagebrush.oct14.Hz20.Ux, sagebrush.oct14.Hz20.Uy, ...
     sagebrush.oct14.Hz20.Uz, length(sagebrush_z), detrend_chunk);
-%%
+
 N = length(playa.oct14.Hz20.Ux(:,1));
 [ playa.oct14.Hz20.Ux, playa.oct14.Hz20.Uy, playa.oct14.Hz20.Uz,...
     playa.oct14.Hz20.Ux_fluct, playa.oct14.Hz20.Uy_fluct,...
@@ -93,6 +97,99 @@ N = length(playa.oct14.Hz20.Ux(:,1));
 % Probability Distributions: For a representative 30-minute averaging period, generate a CDF and PDF
 % for u, v, w, and T and report the skewness and kurtosis.
 
+cnt = 1;
+chunk = 60*30;
+N_1hz = length(sagebrush.oct14.Hz1.T(:,1));
+for c = 1:floor((N_1hz/chunk))
+    %std
+    sagebrush.oct14.Hz1.T_std(c,:) = std(sagebrush.oct14.Hz1.T(cnt:cnt+chunk,:),0,1,'omitnan');
+    playa.oct14.Hz1.T_std(c,:) = std(playa.oct14.Hz1.T(cnt:cnt+chunk,:),0,1,'omitnan');
+    %mean
+    sagebrush.oct14.Hz1.T_mean(c,:) = mean(sagebrush.oct14.Hz1.T(cnt:cnt+chunk,:),1,'omitnan');
+    playa.oct14.Hz1.T_mean(c,:) = mean(playa.oct14.Hz1.T(cnt:cnt+chunk,:),1,'omitnan');
+    %compute pdf and cdf
+    for z = 1:length(sagebrush_z)
+        [Nx,sagebrush.oct14.Hz1.T_edges(:,c,z)]=histcounts(sagebrush.oct14.Hz1.T(:,z),N_1hz,'Normalization','cdf');
+        [sagebrush.oct14.Hz1.T_pdf(:,c,z)] = PDF(sagebrush.oct14.Hz1.T_std(c,z),...
+            sagebrush.oct14.Hz1.T_mean(c,z),sagebrush.oct14.Hz1.T_edges(:,c,z));
+        sagebrush.oct14.Hz1.T_cdf(:,c,z) = .5.*(1+erf((sagebrush.oct14.Hz1.T_edges(:,c,z)- ...
+            sagebrush.oct14.Hz1.T_mean(c,z))./(sagebrush.oct14.Hz1.T_std(c,z)*2^.5)));
+    end
+    for z = 1:length(playa_z)
+        [Nx,playa.oct14.Hz1.T_edges(:,c,z)]=histcounts(playa.oct14.Hz1.T(:,z),N_1hz,'Normalization','cdf');
+        [playa.oct14.Hz1.T_pdf(:,c,z)] = PDF(playa.oct14.Hz1.T_std(c,z),...
+            playa.oct14.Hz1.T_mean(c,z),playa.oct14.Hz1.T_edges(:,c,z));
+        playa.oct14.Hz1.T_cdf(:,c,z) = .5.*(1+erf((playa.oct14.Hz1.T_edges(:,c,z)- ...
+            playa.oct14.Hz1.T_mean(c,z))./(playa.oct14.Hz1.T_std(c,z)*2^.5)));
+    end
+    cnt = cnt+chunk;
+end
+
+chunk = 60*30*20;
+N_1hz = length(sagebrush.oct14.Hz20.Ux(:,1));
+for c = 1:floor((N_1hz/chunk))
+    %std
+    sagebrush.oct14.Hz20.Ux_std(c,:) = std(sagebrush.oct14.Hz20.Ux(cnt:cnt+chunk,:),0,1,'omitnan');
+    sagebrush.oct14.Hz20.Uy_std(c,:) = std(sagebrush.oct14.Hz20.Uy(cnt:cnt+chunk,:),0,1,'omitnan');
+    sagebrush.oct14.Hz20.Uz_std(c,:) = std(sagebrush.oct14.Hz20.Uz(cnt:cnt+chunk,:),0,1,'omitnan');
+    playa.oct14.Hz20.Ux_std(c,:) = std(playa.oct14.Hz20.Ux(cnt:cnt+chunk,:),0,1,'omitnan');
+    playa.oct14.Hz20.Uy_std(c,:) = std(playa.oct14.Hz20.Uy(cnt:cnt+chunk,:),0,1,'omitnan');
+    playa.oct14.Hz20.Uz_std(c,:) = std(playa.oct14.Hz20.Uz(cnt:cnt+chunk,:),0,1,'omitnan');
+    %mean
+    sagebrush.oct14.Hz20.Ux_mean(c,:) = mean(sagebrush.oct14.Hz20.Ux(cnt:cnt+chunk,:),1,'omitnan');
+    sagebrush.oct14.Hz20.Uy_mean(c,:) = mean(sagebrush.oct14.Hz20.Uy(cnt:cnt+chunk,:),1,'omitnan');
+    sagebrush.oct14.Hz20.Uz_mean(c,:) = mean(sagebrush.oct14.Hz20.Uz(cnt:cnt+chunk,:),1,'omitnan');
+    playa.oct14.Hz20.Ux_mean(c,:) = mean(playa.oct14.Hz20.Ux(cnt:cnt+chunk,:),1,'omitnan');
+    playa.oct14.Hz20.Uy_mean(c,:) = mean(playa.oct14.Hz20.Uy(cnt:cnt+chunk,:),1,'omitnan');
+    playa.oct14.Hz20.Uz_mean(c,:) = mean(playa.oct14.Hz20.Uz(cnt:cnt+chunk,:),1,'omitnan');
+    
+     %compute pdf and cdf
+    for z = 1:length(sagebrush_z)
+        %U
+        [Nx,sagebrush.oct14.Hz20.Ux_edges(:,c,z)]=histcounts(sagebrush.oct14.Hz20.Ux(:,z),N_1hz,'Normalization','cdf');
+        [sagebrush.oct14.Hz20.Ux_pdf(:,c,z)] = PDF(sagebrush.oct14.Hz20.Ux_std(c,z),...
+            sagebrush.oct14.Hz20.Ux_mean(c,z),sagebrush.oct14.Hz20.Ux_edges(:,c,z));
+        sagebrush.oct14.Hz20.Ux_cdf(:,c,z) = .5.*(1+erf((sagebrush.oct14.Hz20.Ux_edges(:,c,z)- ...
+            sagebrush.oct14.Hz20.Ux_mean(c,z))./(sagebrush.oct14.Hz20.Ux_std(c,z)*2^.5)));
+        %V
+        [Nx,sagebrush.oct14.Hz20.Uy_edges(:,c,z)]=histcounts(sagebrush.oct14.Hz20.Uy(:,z),N_1hz,'Normalization','cdf');
+        [sagebrush.oct14.Hz20.Uy_pdf(:,c,z)] = PDF(sagebrush.oct14.Hz20.Uy_std(c,z),...
+            sagebrush.oct14.Hz20.Uy_mean(c,z),sagebrush.oct14.Hz20.Uy_edges(:,c,z));
+        sagebrush.oct14.Hz20.Uy_cdf(:,c,z) = .5.*(1+erf((sagebrush.oct14.Hz20.Uy_edges(:,c,z)- ...
+            sagebrush.oct14.Hz20.Uy_mean(c,z))./(sagebrush.oct14.Hz20.Uy_std(c,z)*2^.5)));
+        %W
+        [Nx,sagebrush.oct14.Hz20.Uz_edges(:,c,z)]=histcounts(sagebrush.oct14.Hz20.Uz(:,z),N_1hz,'Normalization','cdf');
+        [sagebrush.oct14.Hz20.Uz_pdf(:,c,z)] = PDF(sagebrush.oct14.Hz20.Uz_std(c,z),...
+            sagebrush.oct14.Hz20.Uz_mean(c,z),sagebrush.oct14.Hz20.Uz_edges(:,c,z));
+        sagebrush.oct14.Hz20.Uz_cdf(:,c,z) = .5.*(1+erf((sagebrush.oct14.Hz20.Uz_edges(:,c,z)- ...
+            sagebrush.oct14.Hz20.Uz_mean(c,z))./(sagebrush.oct14.Hz20.Uz_std(c,z)*2^.5)));
+        
+    end
+    
+    for z = 1:length(playa_z) %U
+        [Nx,playa.oct14.Hz20.Ux_edges(:,c,z)]=histcounts(playa.oct14.Hz20.Ux(:,z),N_1hz,'Normalization','cdf');
+        [playa.oct14.Hz20.Ux_pdf(:,c,z)] = PDF(playa.oct14.Hz20.Ux_std(c,z),...
+            playa.oct14.Hz20.Ux_mean(c,z),playa.oct14.Hz20.Ux_edges(:,c,z));
+        playa.oct14.Hz20.Ux_cdf(:,c,z) = .5.*(1+erf((playa.oct14.Hz20.Ux_edges(:,c,z)- ...
+            playa.oct14.Hz20.Ux_mean(c,z))./(playa.oct14.Hz20.Ux_std(c,z)*2^.5)));
+        %V
+        [Nx,playa.oct14.Hz20.Uy_edges(:,c,z)]=histcounts(playa.oct14.Hz20.Uy(:,z),N_1hz,'Normalization','cdf');
+        [playa.oct14.Hz20.Uy_pdf(:,c,z)] = PDF(playa.oct14.Hz20.Uy_std(c,z),...
+            playa.oct14.Hz20.Uy_mean(c,z),playa.oct14.Hz20.Uy_edges(:,c,z));
+        playa.oct14.Hz20.Uy_cdf(:,c,z) = .5.*(1+erf((playa.oct14.Hz20.Uy_edges(:,c,z)- ...
+            playa.oct14.Hz20.Uy_mean(c,z))./(playa.oct14.Hz20.Uy_std(c,z)*2^.5)));
+        %W
+        [Nx,playa.oct14.Hz20.Uz_edges(:,c,z)]=histcounts(playa.oct14.Hz20.Uz(:,z),N_1hz,'Normalization','cdf');
+        [playa.oct14.Hz20.Uz_pdf(:,c,z)] = PDF(playa.oct14.Hz20.Uz_std(c,z),...
+            playa.oct14.Hz20.Uz_mean(c,z),playa.oct14.Hz20.Uz_edges(:,c,z));
+        playa.oct14.Hz20.Uz_cdf(:,c,z) = .5.*(1+erf((playa.oct14.Hz20.Uz_edges(:,c,z)- ...
+            playa.oct14.Hz20.Uz_mean(c,z))./(playa.oct14.Hz20.Uz_std(c,z)*2^.5)));
+    end
+    cnt = cnt+chunk;
+end
+
+%% NEED to decide which 30 minute chunk we want to analyze, - then calc 3rd and 4th moment.
+%... Will think, probably a convective period during the day
 
 %%
 % 3. Autocorrelation: Calculate the autocorrelation of at least one 30-minute period. What does this
