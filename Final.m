@@ -191,13 +191,50 @@ end
 %% NEED to decide which 30 minute chunk we want to analyze, - then calc 3rd and 4th moment.
 %... Will think, probably a convective period during the day
 
+%Skewness and Kurtosis corr on u,v,and w
+chunk = 30*60*20;
+num_chuck = 20; %20 for 10 am
+t_start = chunk*num_chuck;
+t_end = t_start+chunk;
+
+for z = 1:length(sagebrush_z)
+    sagebrush.oct14.Hz20.Ux_skew(:,z) = third_moment(sagebrush.oct14.Hz20.Ux(t_start:t_end,z));
+    sagebrush.oct14.Hz20.Uy_skew(:,z) = third_moment(sagebrush.oct14.Hz20.Uy(t_start:t_end,z));
+    sagebrush.oct14.Hz20.Uz_skew(:,z) = third_moment(sagebrush.oct14.Hz20.Uz(t_start:t_end,z));
+    sagebrush.oct14.Hz20.Ux_kurt(:,z) = fourth_moment(sagebrush.oct14.Hz20.Ux(t_start:t_end,z));
+    sagebrush.oct14.Hz20.Uy_kurt(:,z) = fourth_moment(sagebrush.oct14.Hz20.Uy(t_start:t_end,z));
+    sagebrush.oct14.Hz20.Uz_kurt(:,z) = fourth_moment(sagebrush.oct14.Hz20.Uz(t_start:t_end,z));
+end
+
+for z = 1:length(playa_z)
+    playa.oct14.Hz20.Ux_skew(:,z) = third_moment(sagebrush.oct14.Hz20.Ux(t_start:t_end,z));
+    playa.oct14.Hz20.Uy_skew(:,z) = third_moment(sagebrush.oct14.Hz20.Uy(t_start:t_end,z));
+    playa.oct14.Hz20.Uz_skew(:,z) = third_moment(sagebrush.oct14.Hz20.Uz(t_start:t_end,z));
+    playa.oct14.Hz20.Ux_kurt(:,z) = fourth_moment(sagebrush.oct14.Hz20.Ux(t_start:t_end,z));
+    playa.oct14.Hz20.Uy_kurt(:,z) = fourth_moment(sagebrush.oct14.Hz20.Uy(t_start:t_end,z));
+    playa.oct14.Hz20.Uz_kurt(:,z) = fourth_moment(sagebrush.oct14.Hz20.Uz(t_start:t_end,z));
+end
+
+%Skewness and Kurtosis corr on T
+chunk = 30*60*1;
+num_chuck = 20;
+t_start = chunk*num_chuck;
+t_end = t_start+chunk;
+for z = 1:length(sagebrush_z)
+    sagebrush.oct14.Hz1.T_skew(:,z) = third_moment(sagebrush.oct14.Hz1.T(t_start:t_end,z));
+    sagebrush.oct14.Hz1.T_kurt(:,z) = fourth_moment(sagebrush.oct14.Hz1.T(t_start:t_end,z));
+end
+for z = 1:length(playa_z)
+    playa.oct14.Hz1.T_skew(:,z) = third_moment(sagebrush.oct14.Hz1.T(t_start:t_end,z));
+    playa.oct14.Hz1.T_kurt(:,z) = fourth_moment(sagebrush.oct14.Hz1.T(t_start:t_end,z));
+end
 %%
 % 3. Autocorrelation: Calculate the autocorrelation of at least one 30-minute period. What does this
 % indicate?
 
 %Auto corr on u v and w
 chunk = 30*60*20;
-num_chuck = 12;
+num_chuck = 20; %20 for 10 am
 t_start = chunk*num_chuck;
 t_end = t_start+chunk;
 %tic
@@ -226,6 +263,68 @@ for z = 1:length(playa_z)
     playa.oct14.Hz1.T_autocorr(:,z) = AutoCorrelation(playa.oct14.Hz1.T(t_start:t_end,z));
 end
 %toc
+
+x_axis1hz = linspace(0,30,length(sagebrush.oct14.Hz1.T_autocorr(:,1)));
+x_axis20hz = linspace(0,30,length(sagebrush.oct14.Hz20.Ux_autocorr(:,1)));
+%%
+figure()
+subplot(4,2,1)
+plot(x_axis20hz,sagebrush.oct14.Hz20.Ux_autocorr);
+set(gca,'fontsize', 15)
+ylabel('$\rho_u$', 'interpreter','latex','fontsize',20);
+legend('18.6 m','10.15','5.87','2.04','0.55')
+title('Sagebrush', 'interpreter','latex','fontsize',25)
+axis([0 30 -1 1]); 
+
+subplot(4,2,2)
+plot(x_axis20hz,playa.oct14.Hz20.Ux_autocorr);
+set(gca,'fontsize', 15)
+title('Playa', 'interpreter','latex','fontsize',25)
+legend('25.5 m','19.4','10.4','5.3','2.02','0.61')
+axis([0 30 -1 1]); 
+
+subplot(4,2,3)
+plot(x_axis20hz,sagebrush.oct14.Hz20.Uy_autocorr);
+set(gca,'fontsize', 15)
+ylabel('$\rho_v$', 'interpreter','latex','fontsize',20);
+legend('18.6 m','10.15','5.87','2.04','0.55')
+axis([0 30 -1 1]); 
+
+subplot(4,2,4)
+plot(x_axis20hz,playa.oct14.Hz20.Uy_autocorr);
+set(gca,'fontsize', 15)
+legend('25.5 m','19.4','10.4','5.3','2.02','0.61')
+axis([0 30 -1 1]); 
+
+subplot(4,2,5)
+plot(x_axis20hz,sagebrush.oct14.Hz20.Uz_autocorr);
+set(gca,'fontsize', 15)
+ylabel('$\rho_w$', 'interpreter','latex','fontsize',20);
+legend('18.6 m','10.15','5.87','2.04','0.55')
+axis([0 30 -1 1]); 
+
+subplot(4,2,6)
+plot(x_axis20hz,playa.oct14.Hz20.Uz_autocorr);
+set(gca,'fontsize', 15)
+legend('25.5 m','19.4','10.4','5.3','2.02','0.61')
+axis([0 30 -1 1]); 
+
+subplot(4,2,7)
+plot(x_axis1hz,sagebrush.oct14.Hz1.T_autocorr);
+set(gca,'fontsize', 15)
+ylabel('$\rho_T$', 'interpreter','latex','fontsize',20);
+legend('18.6 T','10.15','5.87','2.04','0.55')
+xlabel('time (min)', 'interpreter','latex','fontsize',20);
+axis([0 30 -1 1]); 
+
+subplot(4,2,8)
+plot(x_axis1hz,playa.oct14.Hz1.T_autocorr);
+set(gca,'fontsize', 15)
+legend('25.5 m','19.4','10.4','5.3','2.02','0.61')
+xlabel('time (min)', 'interpreter','latex','fontsize',20);
+axis([0 30 -1 1]); 
+
+
 
 %% 4. 
 % Dissipation: Using Taylor?s frozen turbulence hypothesis, calculate the dissipation rate of turbulent
