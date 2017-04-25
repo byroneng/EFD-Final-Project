@@ -13,7 +13,7 @@ end
 
 variance = variance/N;
 
-for k = 0:N %k is the time lag
+for k = 0:N/2 %k is the time lag
 
     for i= 1:(N-k)
         top = top +(x(i))*(x(i+k));

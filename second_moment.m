@@ -3,7 +3,7 @@ function [ variance ] = second_moment( data )
 
 N = length(data);
 
-variance = (1/(N-1))*sum((data-mean(data)).^2);
+variance = (1/(N-1))*sum((data-mean(data,'omitnan')).^2);
 
 end
 

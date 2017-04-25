@@ -1,6 +1,6 @@
 function [ kurtosis ] = fourth_moment( x )
 %Kurtosis
-mean=first_moment(x);
+m=mean(x,'omitnan');
 stndDev=second_moment(x)^2;
 L=length(x);
 % coeff=((L+1)*L)/...
@@ -9,7 +9,7 @@ L=length(x);
 sum=0;
 
 for i=1:L
-    sum=(x(i)-mean)^4+sum;
+    sum=(x(i)-m)^4+sum;
 end
  kurtosis=(1/L)*(sum/stndDev)-3;
 
