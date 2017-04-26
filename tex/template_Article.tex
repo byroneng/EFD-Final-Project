@@ -1,17 +1,119 @@
 \documentclass[]{article}
+\usepackage{graphicx}
+\graphicspath{ {plots/} }
 
-%opening
-\title{}
-\author{}
+
+\title{Impacts of sagebrush vegetation in a desert climate on the atmospheric boundary layer}
+\author{Byron Eng, Matthew Moody, and Travis Morrison}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-
+XXX
 \end{abstract}
 
-\section{}
+\section{Introduction}
+
+\section{Results}
+Data was provided from the Sagebrush and Playa sites for October 18-19th. Both sites harvested data from meteorological towers equipped with fast response sonic anemometers at multiple heights (18.8 m, 10.15 m, 5.87 m, 2.04 m, and 0.55 m for Sagebrush and 25.5 m,19.4 m, 10.4 m, 5.3 m, 2.02 m, 0.61m for Playa). The variables of interest measured were the three components of velocity (captured at 20 Hz), temperature, relative humidity (captured at 1 Hz). As a post-processing step the analysis,  velocity data components were rotated based on 30-minute block averages, with $u$ denoting the mean wind direction, $v$ as the velocity horizontally perpendicular to the mean flow, $u$, and $w$ as the vertical velocity. Fluctuations from the mean were also calculated from a 30-minute block average. 
+
+% Byron talks about part 1)
+
+%Part 2 and 3~ Travis
+
+
+
+%plot PDFs
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{pdf}
+	\caption{Collection of probability distributions from the Sagebrush (\textbf{left}) and the Playa (\textbf{right} sites). From top to bottom }
+	\label{fig:pdf}
+\end{figure}
+
+%Create table of Skewness and Kurtosis
+\begin{table}
+\begin{tabular}{ |p{1cm}|p{2cm}|p{1cm}|p{1cm}|p{1cm}| p{1.5cm}|}
+
+		\hline
+		\multicolumn{6}{|c|}{Sagebrush} \\
+		\hline\hline
+		z (m) & Statistic & u &  v & w & T\\
+		\hline
+		18.6 & Kurtosis & 2.3731 & 3.1820 & 3.6346&  1.6588\\
+		&Skewness & 0.3067 & 0.2446 & 0.8532 & -0.3490\\
+		\hline
+		10.15 & Kurtosis & 2.4933 & 3.4515 & 2.8027 &1.8469 \\
+		&Skewness & 0.1651 & 0.1227 & 0.3879& -0.5126\\
+        \hline
+       	5.87 & Kurtosis & 2.6679 & 3.2820 & 3.8053 &2.0491 \\
+       	&Skewness & 0.2694 & 0.1717 & 0.5359 & -0.6396\\
+       	\hline
+   		2.04 & Kurtosis & 2.6868 & 3.6466  & 3.3045 & 2.0662  \\
+   		&Skewness & 0.1876 & 0.3174 & 0.4101& -0.4458\\
+   		\hline
+		0.55 & Kurtosis & 2.6739 & 3.1869 & 3.8168  & 2.4663\\
+		&Skewness & 0.0655 & 0.3693 & 0.3859&0.7037\\
+		\hline
+		mean & & &&&\\
+		\hline
+		
+\end{tabular}
+\label{tab:kurt_sage}
+\caption{Skewness and kurtosis values for the Sagebrush site on October 19th from 1500-1530 MST. }
+\end{table}
+\begin{table}
+\begin{tabular}{ |p{1cm}|p{1.5cm}|p{1cm}|p{1.25cm}|p{1cm}| p{1.25cm}|}
+	\hline
+	\multicolumn{6}{|c|}{Playa} \\
+	\hline\hline
+	z (m) & Statistic & u &  v & w & T\\
+	\hline
+	25.5 & Kurtosis & 2.1075 & 2.5910 & 3.5269 &  2.2656\\
+	&Skewness & 0.1212 & -0.2004 & 0.7672 & 0.5295\\
+	\hline
+	19.4 & Kurtosis & 2.2519 & 2.8332 & 3.4123 &1.6080 \\
+	&Skewness & 0.2287 & -0.2862 & 0.7324 & 0.1421\\
+	\hline
+	10.4 & Kurtosis & 2.8320 & 1.9469 & 3.0079 &4.6 \\
+	&Skewness & 0.3884 & 0.1464 & 0.3786 &1.2276\\
+	\hline
+	5.3 & Kurtosis & 2.9033 & 2.1528  & 3.1285 & 3.2123  \\
+	&Skewness & 0.1862 & 0.1298 & 0.4560 & 0.9190\\
+	\hline
+	2.02 & Kurtosis & 3.0038 & 2.0993 & 3.2620  & 2.3460\\
+	&Skewness & 0.3980 & -0.0969 & 0.4160 & 0.6531\\
+	\hline
+	0.61 & Kurtosis & 3.1414 & 1.9599 & 3.3634  & 2.3473\\
+	&Skewness & 0.5253 & -0.1403 & 0.2770 &0.6531\\
+	\hline
+	mean & & &&&\\
+	\hline
+\end{tabular}
+\label{tab:kurt_playa}
+\caption{Skewness and kurtosis values for the Playa site on October 19th from 1500-1530 MST. }
+\end{table}
+%plot CDFs
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{cdf}
+\caption{}
+\label{fig:cdf}
+\end{figure}
+
+
+%plot Autocorr
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{auto_corr_fig}
+	\caption{}
+	\label{fig:autocorr}
+\end{figure}
+%Matt talks about part 4 and 5
+
+\section{Conclusion}
+
 
 \end{document}
