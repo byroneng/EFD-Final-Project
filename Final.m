@@ -497,12 +497,12 @@ sagebrush.oct18.Hz1.T_fluct = sagebrush.oct18.Hz1.T(t_start1:t_end1,:) -...
 
 playa.oct18.Hz1.T_fluct = playa.oct18.Hz1.T(t_start1:t_end1,:) -...
     mean(playa.oct18.Hz1.T(t_start1:t_end1,:),1);
-h = 3; 
+h = 1; 
 figure()
 subplot(3,2,1)
 plot(sagebrush.oct18.Hz20.Uy_fluct(t_start:t_end,h),sagebrush.oct18.Hz20.Ux_fluct(t_start:t_end,h),'r*');
 hold on
-plot(playa.oct18.Hz20.Uy_fluct(t_start:t_end,h),playa.oct18.Hz20.Ux_fluct(t_start:t_end,h),'bo');
+plot(playa.oct18.Hz20.Uy_fluct(t_start:t_end,h+1),playa.oct18.Hz20.Ux_fluct(t_start:t_end,h+1),'bo');
 set(gca,'fontsize', 15)
 xlabel('$v^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
 legend('Sagebrush','Playa')
@@ -515,7 +515,7 @@ grid on
 subplot(3,2,2)
 plot(sagebrush.oct18.Hz20.Uz_fluct(t_start:t_end,h),sagebrush.oct18.Hz20.Ux_fluct(t_start:t_end,h),'r*');
 hold on
-plot(playa.oct18.Hz20.Uz_fluct(t_start:t_end,h),playa.oct18.Hz20.Ux_fluct(t_start:t_end,h),'bo');
+plot(playa.oct18.Hz20.Uz_fluct(t_start:t_end,h+1),playa.oct18.Hz20.Ux_fluct(t_start:t_end,h+1),'bo');
 set(gca,'fontsize', 15)
 xlabel('$w^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
 legend('Sagebrush','Playa')
@@ -528,7 +528,7 @@ grid on
 subplot(3,2,3)
 plot(sagebrush.oct18.Hz20.Uz_fluct(t_start:t_end,h),sagebrush.oct18.Hz20.Uy_fluct(t_start:t_end,h),'r*');
 hold on
-plot(playa.oct18.Hz20.Uz_fluct(t_start:t_end,h),playa.oct18.Hz20.Uy_fluct(t_start:t_end,h),'bo');
+plot(playa.oct18.Hz20.Uz_fluct(t_start:t_end,h+1),playa.oct18.Hz20.Uy_fluct(t_start:t_end,h+1),'bo');
 set(gca,'fontsize', 15)
 xlabel('$w^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
 legend('Sagebrush','Playa')
@@ -541,7 +541,7 @@ grid on
 subplot(3,2,4)
 plot(sagebrush.oct18.Hz1.T_fluct(:,h),sagebrush.oct18.Hz20.Uz_fluct(t_start:20:t_end,h),'r*');
 hold on
-plot(playa.oct18.Hz1.T_fluct(:,h),playa.oct18.Hz20.Uz_fluct(t_start:20:t_end,h),'bo');
+plot(playa.oct18.Hz1.T_fluct(:,h+1),playa.oct18.Hz20.Uz_fluct(t_start:20:t_end,h+1),'bo');
 set(gca,'fontsize', 15)
 xlabel('$T^\prime$ ($^\circ$C)', 'interpreter','latex','fontsize',20);
 legend('Sagebrush','Playa')
@@ -554,7 +554,7 @@ grid on
 subplot(3,2,5)
 plot(sagebrush.oct18.Hz1.T_fluct(:,h),sagebrush.oct18.Hz20.Ux_fluct(t_start:20:t_end,h),'r*');
 hold on
-plot(playa.oct18.Hz1.T_fluct(:,h),playa.oct18.Hz20.Ux_fluct(t_start:20:t_end,h),'bo');
+plot(playa.oct18.Hz1.T_fluct(:,h+1),playa.oct18.Hz20.Ux_fluct(t_start:20:t_end,h+1),'bo');
 set(gca,'fontsize', 15)
 xlabel('$T^\prime$ ($^\circ$C)', 'interpreter','latex','fontsize',20);
 legend('Sagebrush','Playa')
@@ -567,7 +567,7 @@ grid on
 subplot(3,2,6)
 plot(sagebrush.oct18.Hz1.T_fluct(:,h),sagebrush.oct18.Hz20.Uy_fluct(t_start:20:t_end,h),'r*');
 hold on
-plot(playa.oct18.Hz1.T_fluct(:,h),playa.oct18.Hz20.Uy_fluct(t_start:20:t_end,h),'bo');
+plot(playa.oct18.Hz1.T_fluct(:,h+1),playa.oct18.Hz20.Uy_fluct(t_start:20:t_end,h+1),'bo');
 set(gca,'fontsize', 15)
 xlabel('$T^\prime$ ($^\circ$C)', 'interpreter','latex','fontsize',20);
 legend('Sagebrush','Playa')
