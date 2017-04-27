@@ -36,9 +36,9 @@ for z = 1:num_heights
     cnt = 1;
     for c = 1:floor((Npoints/detrend_chunk))
         % ... calculate the averages
-        mu(cnt:cnt+detrend_chunk,z) = nanmean(u(cnt:cnt+detrend_chunk,z));
-        mv(cnt:cnt+detrend_chunk,z) = nanmean(v(cnt:cnt+detrend_chunk,z));
-        mw(cnt:cnt+detrend_chunk,z) = nanmean(w(cnt:cnt+detrend_chunk,z));
+        mu(cnt:cnt+detrend_chunk,z) = mean(u(cnt:cnt+detrend_chunk,z),'omitnan');
+        mv(cnt:cnt+detrend_chunk,z) = mean(v(cnt:cnt+detrend_chunk,z),'omitnan');
+        mw(cnt:cnt+detrend_chunk,z) = mean(w(cnt:cnt+detrend_chunk,z),'omitnan');
         
         % ... calculate the wind speed within the window
         out.meanU(cnt:cnt+detrend_chunk,z) = sqrt(mu(cnt:cnt+detrend_chunk,z).^2 + mv(cnt:cnt+detrend_chunk,z).^2 + mw(cnt:cnt+detrend_chunk,z).^2);

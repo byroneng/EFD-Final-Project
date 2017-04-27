@@ -112,14 +112,18 @@ detrend_chunk = 60*30*20; %number of points we detrend from (30 min)
     sagebrush.oct18.Hz20.Uz, length(sagebrush_z), detrend_chunk);
 
 N = length(playa.oct18.Hz20.Ux(:,1));
+
 [ playa.oct18.Hz20.Ux, playa.oct18.Hz20.Uy, playa.oct18.Hz20.Uz,...
     playa.oct18.Hz20.Ux_fluct, playa.oct18.Hz20.Uy_fluct,...
     playa.oct18.Hz20.Uz_fluct, playa.oct18.Hz20.ws_wd ] = ...
     rotate_data( freq,period,N, playa.oct18.Hz20.Ux, playa.oct18.Hz20.Uy,...
     playa.oct18.Hz20.Uz,length(playa_z),detrend_chunk );
 
+<<<<<<< Updated upstream
 end %if reloaddata
     
+=======
+>>>>>>> Stashed changes
 %%  1.
 %Simple Time Averaging: calculate (a) 30-minute averages of u, v, w, and T, as well as (b) ws, wd,
 % ?u, ?v, ?w, w0T0,s, u?, Hs, tke, L, and w? (if appropriate), where ws and wd are average wind speed
@@ -388,7 +392,95 @@ end
 set(gca,'fontsize', 15)
 legend('25.5 m','19.4','10.4','5.3','2.02','0.61')
 xlabel('T ($^\circ C$)', 'interpreter','latex','fontsize',20);
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                         Plot u and T vertical profiles
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+num_chuck = 42; 
+chunk = 30*60*20;
+t_start = chunk*num_chuck;
+t_end = t_start+chunk;
+figure()
+subplot(4,2,1)
+plot(mean(sagebrush.oct18.Hz20.Ux(t_start:t_end,:),1,'omitnan'),sagebrush_z,'r--*');
+hold on
+plot(mean(playa.oct18.Hz20.Ux(t_start:t_end,:),1),playa_z,'b--o');
+set(gca,'fontsize', 15)
+xlabel('$\overline{u}$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+%legend('Sagebrush','Playa')
+ylabel('z (m)', 'interpreter','latex','fontsize',20);
+axis([0 2 0.55 25.5])
+grid on
 
+num_chuck = 42; 
+chunk = 30*60*20;
+t_start = chunk*num_chuck;
+t_end = t_start+(20*60);
+subplot(4,2,3)
+for i = t_start:t_end
+    patchline(sagebrush.oct18.Hz20.Ux_fluct(i,:),sagebrush_z,'edgecolor','r','edgealpha',0.025);
+    hold on
+end
+hold on
+for i = t_start:t_end
+    patchline(playa.oct18.Hz20.Ux_fluct(i,:),playa_z,'edgecolor','b','edgealpha',0.025);
+    hold on
+end
+set(gca,'fontsize', 15)
+xlabel('u$^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+%legend('Sagebrush','Playa')
+ylabel('z (m)', 'interpreter','latex','fontsize',20);
+axis([-2 2 0.55 25.5])
+grid on
+
+subplot(4,2,5)
+for i = t_start:t_end
+    patchline(sagebrush.oct18.Hz20.Uy_fluct(i,:),sagebrush_z,'edgecolor','r','edgealpha',0.025);
+    hold on
+end
+hold on
+for i = t_start:t_end
+    patchline(playa.oct18.Hz20.Uy_fluct(i,:),playa_z,'edgecolor','b','edgealpha',0.025);
+    hold on
+end
+set(gca,'fontsize', 15)
+ylabel('z (m)', 'interpreter','latex','fontsize',20);
+%legend('Sagebrush','Playa')
+xlabel('v$^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+axis([-2 2 0.55 25.5])
+grid on
+
+subplot(4,2,7)
+for i = t_start:t_end
+    patchline(sagebrush.oct18.Hz20.Uz_fluct(i,:),sagebrush_z,'edgecolor','r','edgealpha',0.025);
+    hold on
+end
+hold on
+for i = t_start:t_end
+    patchline(playa.oct18.Hz20.Uz_fluct(i,:),playa_z,'edgecolor','b','edgealpha',0.025);
+    hold on
+end
+set(gca,'fontsize', 15)
+xlabel('w$^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+%legend('Sagebrush','Playa')
+ylabel('z (m)', 'interpreter','latex','fontsize',20);
+axis([-2 2 0.55 25.5])
+grid on
+
+chunk = 30*60*1;
+t_start = chunk*num_chuck;
+t_end = t_start+chunk;
+subplot(1,2,2)
+plot(mean(sagebrush.oct18.Hz1.T(t_start:t_end,:),1,'omitnan'),sagebrush_z,'r--*');
+hold on
+plot(mean(playa.oct18.Hz1.T(t_start:t_end,:),1),playa_z,'b--o');
+set(gca,'fontsize', 15)
+xlabel('$\overline{T}$ ($^\circ$C)', 'interpreter','latex','fontsize',20);
+legend('Sagebrush','Playa')
+ylabel('z (m)', 'interpreter','latex','fontsize',20);
+axis([15 20 0.55 25.5])
+grid on
+%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                           Calculate 3rd and 4th moments
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
