@@ -535,4 +535,89 @@ axis([0 15 -1 1]);
 % energy spectra: Suu, Svv, Sww, ST T , as well as the following cospectra: Suw, Svw, Swt. What do
 % these spectra indicate about the analyzed boundary layer? Is there an inertial subrange?
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                           Calculate Turbulence Spectra
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Turbulence Spectra Suu, Svv, Sww, Stt
+% Cospectra Suw, Svw, Swt
+% Calculated using 2 meter height sensor
+chunk = 30*60*20;
+t_start = chunk*num_chuck;
+t_end = t_start+chunk;
+
+[sagebrush_Ux_spectra_ww, sagebrush_Ux_spectra_ff]...
+    = spectra(sagebrush.oct18.Hz20.Ux(t_start:t_end,5));
+[sagebrush_Uy_spectra_ww, sagebrush_Uy_spectra_ff]...
+    = spectra(sagebrush.oct18.Hz20.Uy(t_start:t_end,5));
+[sagebrush_Uz_spectra_ww, sagebrush_Uz_spectra_ff]...
+    = spectra(sagebrush.oct18.Hz20.Uz(t_start:t_end,5));
+
+[playa_Ux_spectra_ww, playa_Ux_spectra_ff]...
+    = spectra(playa.oct18.Hz20.Ux(t_start:t_end,5));
+[playa_Uy_spectra_ww, playa_Uy_spectra_ff]...
+    = spectra(playa.oct18.Hz20.Uy(t_start:t_end,5));
+[playa_Uz_spectra_ww, playa_Uz_spectra_ff]...
+    = spectra(playa.oct18.Hz20.Uz(t_start:t_end,5));
+
+%Spectra on T
+chunk = 30*60*1;
+t_start = chunk*num_chuck;
+t_end = t_start+chunk;
+
+[playa_T_spectra_ww, playa_T_spectra_ff]...
+    = spectra(playa.oct18.Hz1.T(t_start:t_end,5));
+[sagebrush_T_spectra_ww, sagebrush_T_spectra_ff]...
+    = spectra(sagebrush.oct18.Hz1.T(t_start:t_end,5));
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                           Plot Spectra
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+figure();
+loglog(playa_Ux_spectra_ww,playa_Ux_spectra_ff,'r--')
+hold on
+loglog(sagebrush_Ux_spectra_ww,sagebrush_Ux_spectra_ff,'b-')
+ww_slope = 0.05:0.1:3;
+loglog(ww_slope, 10^-6.5 * ww_slope.^(-5/3),'k-')
+set(gca,'fontsize', 15)
+ylabel('$S_{uu}$', 'interpreter','latex','fontsize',20);
+title('$S_{uu}$', 'interpreter','latex','fontsize',25)
+xlabel('f (Hz)', 'interpreter','latex','fontsize',25)
+legend('Playa','Sagebrush','(-5/3) slope')
+
+figure();
+loglog(playa_Uy_spectra_ww,playa_Uy_spectra_ff,'r--')
+hold on
+loglog(sagebrush_Uy_spectra_ww,sagebrush_Uy_spectra_ff,'b-')
+ww_slope = 0.05:0.1:3;
+loglog(ww_slope, 10^-6.5 * ww_slope.^(-5/3),'k-')
+set(gca,'fontsize', 15)
+ylabel('$S_{vv}$', 'interpreter','latex','fontsize',20);
+title('$S_{vv}$', 'interpreter','latex','fontsize',25)
+xlabel('f (Hz)', 'interpreter','latex','fontsize',25)
+legend('Playa','Sagebrush','(-5/3) slope')
+
+figure();
+loglog(playa_Uz_spectra_ww,playa_Uz_spectra_ff,'r--')
+hold on
+loglog(sagebrush_Uz_spectra_ww,sagebrush_Uz_spectra_ff,'b-')
+ww_slope = 0.05:0.1:3;
+loglog(ww_slope, 10^-6.5 * ww_slope.^(-5/3),'k-')
+set(gca,'fontsize', 15)
+ylabel('$S_{ww}$', 'interpreter','latex','fontsize',20);
+title('$S_{ww}$', 'interpreter','latex','fontsize',25)
+xlabel('f (Hz)', 'interpreter','latex','fontsize',25)
+legend('Playa','Sagebrush','(-5/3) slope')
+
+figure();
+loglog(playa_T_spectra_ww,playa_T_spectra_ff,'r--')
+hold on
+loglog(sagebrush_T_spectra_ww,sagebrush_T_spectra_ff,'b-')
+ww_slope = 0.05:0.1:3;
+loglog(ww_slope, 10^-6.5 * ww_slope.^(-5/3),'k-')
+set(gca,'fontsize', 15)
+ylabel('$S_{TT}$', 'interpreter','latex','fontsize',20);
+title('$S_{TT}$', 'interpreter','latex','fontsize',25)
+xlabel('f (Hz)', 'interpreter','latex','fontsize',25)
+legend('Playa','Sagebrush','(-5/3) slope')
 
