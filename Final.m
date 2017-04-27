@@ -312,7 +312,9 @@ end
 set(gca,'fontsize', 15)
 legend('25.5 m','19.4','10.4','5.3','2.02','0.61')
 xlabel('T ($^\circ C$)', 'interpreter','latex','fontsize',20);
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                         Plot CDF 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure()
 subplot(4,2,1)
 for z = 1:length(sagebrush_z)
@@ -480,6 +482,102 @@ legend('Sagebrush','Playa')
 ylabel('z (m)', 'interpreter','latex','fontsize',20);
 axis([15 20 0.55 25.5])
 grid on
+
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                         Plot momentum correlations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+chunk1 = 30*60*1;
+t_start1 = chunk1*num_chuck;
+t_end1 = t_start1+chunk1;
+
+sagebrush.oct18.Hz1.T_fluct = sagebrush.oct18.Hz1.T(t_start1:t_end1,:) -...
+    mean(sagebrush.oct18.Hz1.T(t_start1:t_end1,:),1);
+
+playa.oct18.Hz1.T_fluct = playa.oct18.Hz1.T(t_start1:t_end1,:) -...
+    mean(playa.oct18.Hz1.T(t_start1:t_end1,:),1);
+h = 3; 
+figure()
+subplot(3,2,1)
+plot(sagebrush.oct18.Hz20.Uy_fluct(t_start:t_end,h),sagebrush.oct18.Hz20.Ux_fluct(t_start:t_end,h),'r*');
+hold on
+plot(playa.oct18.Hz20.Uy_fluct(t_start:t_end,h),playa.oct18.Hz20.Ux_fluct(t_start:t_end,h),'bo');
+set(gca,'fontsize', 15)
+xlabel('$v^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+legend('Sagebrush','Playa')
+ylabel('$u^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+axis([-2 2 -3 3])
+plot([-5 5],[0 0],'k','LineWidth', 2)
+plot([0 0],[-5 5],'k','LineWidth', 2)
+grid on
+
+subplot(3,2,2)
+plot(sagebrush.oct18.Hz20.Uz_fluct(t_start:t_end,h),sagebrush.oct18.Hz20.Ux_fluct(t_start:t_end,h),'r*');
+hold on
+plot(playa.oct18.Hz20.Uz_fluct(t_start:t_end,h),playa.oct18.Hz20.Ux_fluct(t_start:t_end,h),'bo');
+set(gca,'fontsize', 15)
+xlabel('$w^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+legend('Sagebrush','Playa')
+ylabel('$u^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+axis([-2 2 -3 3])
+plot([-5 5],[0 0],'k','LineWidth', 2)
+plot([0 0],[-5 5],'k','LineWidth', 2)
+grid on
+
+subplot(3,2,3)
+plot(sagebrush.oct18.Hz20.Uz_fluct(t_start:t_end,h),sagebrush.oct18.Hz20.Uy_fluct(t_start:t_end,h),'r*');
+hold on
+plot(playa.oct18.Hz20.Uz_fluct(t_start:t_end,h),playa.oct18.Hz20.Uy_fluct(t_start:t_end,h),'bo');
+set(gca,'fontsize', 15)
+xlabel('$w^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+legend('Sagebrush','Playa')
+ylabel('$v^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+axis([-2 2 -3 3])
+plot([-5 5],[0 0],'k','LineWidth', 2)
+plot([0 0],[-5 5],'k','LineWidth', 2)
+grid on
+
+subplot(3,2,4)
+plot(sagebrush.oct18.Hz1.T_fluct(:,h),sagebrush.oct18.Hz20.Uz_fluct(t_start:20:t_end,h),'r*');
+hold on
+plot(playa.oct18.Hz1.T_fluct(:,h),playa.oct18.Hz20.Uz_fluct(t_start:20:t_end,h),'bo');
+set(gca,'fontsize', 15)
+xlabel('$T^\prime$ ($^\circ$C)', 'interpreter','latex','fontsize',20);
+legend('Sagebrush','Playa')
+ylabel('$w^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+axis([-2 2 -3 3])
+plot([-5 5],[0 0],'k','LineWidth', 2)
+plot([0 0],[-5 5],'k','LineWidth', 2)
+grid on
+
+subplot(3,2,5)
+plot(sagebrush.oct18.Hz1.T_fluct(:,h),sagebrush.oct18.Hz20.Ux_fluct(t_start:20:t_end,h),'r*');
+hold on
+plot(playa.oct18.Hz1.T_fluct(:,h),playa.oct18.Hz20.Ux_fluct(t_start:20:t_end,h),'bo');
+set(gca,'fontsize', 15)
+xlabel('$T^\prime$ ($^\circ$C)', 'interpreter','latex','fontsize',20);
+legend('Sagebrush','Playa')
+ylabel('$u^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+axis([-2 2 -3 3])
+plot([-5 5],[0 0],'k','LineWidth', 2)
+plot([0 0],[-5 5],'k','LineWidth', 2)
+grid on
+
+subplot(3,2,6)
+plot(sagebrush.oct18.Hz1.T_fluct(:,h),sagebrush.oct18.Hz20.Uy_fluct(t_start:20:t_end,h),'r*');
+hold on
+plot(playa.oct18.Hz1.T_fluct(:,h),playa.oct18.Hz20.Uy_fluct(t_start:20:t_end,h),'bo');
+set(gca,'fontsize', 15)
+xlabel('$T^\prime$ ($^\circ$C)', 'interpreter','latex','fontsize',20);
+legend('Sagebrush','Playa')
+ylabel('$v^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+axis([-2 2 -3 3])
+plot([-5 5],[0 0],'k','LineWidth', 2)
+plot([0 0],[-5 5],'k','LineWidth', 2)
+grid on
+
+
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                           Calculate 3rd and 4th moments
