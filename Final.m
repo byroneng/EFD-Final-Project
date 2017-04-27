@@ -758,11 +758,12 @@ end
 % Turbulence Spectra Suu, Svv, Sww, Stt
 % Cospectra Suw, Svw, Swt
 % Calculated using 2 meter height sensor
+% Spectra
+
 chunk = 30*60*20;
 t_start = chunk*num_chuck;
 t_end = t_start+chunk;
 
-% Spectra u, v, w
 [sagebrush_Ux_spectra_ww, sagebrush_Ux_spectra_ff]...
     = spectra(sagebrush.oct18.Hz20.Ux(t_start:t_end,5));
 [sagebrush_Uy_spectra_ww, sagebrush_Uy_spectra_ff]...
@@ -787,33 +788,36 @@ t_end = t_start+chunk;
 [sagebrush_T_spectra_ww, sagebrush_T_spectra_ff]...
     = spectra(sagebrush.oct18.Hz1.T(t_start:t_end,5));
 
-% Cospectra uw, vw
+% Cospectra
 
 chunk = 30*60*20;
 t_start = chunk*num_chuck;
 t_end = t_start+chunk;
 
-[sagebrush_UxUz_spectra_ww, sagebrush_UxUz_spectra_ff]...
+[sagebrush_UxUz_cospectra_ww, sagebrush_UxUz_cospectra_ff]...
     = cospectra(sagebrush.oct18.Hz20.Ux(t_start:t_end,5),...
-    sagebrush.oct18.Hz20.Uz(t_start:T_end,5));
-[sagebrush_UyUz_spectra_ww, sagebrush_Uy_spectra_ff]...
-    = spectra(sagebrush.oct18.Hz20.Uy(t_start:t_end,5),...
-    sagebrush.oct18.Hz20.Uz(t_start:T_end,5));
+    sagebrush.oct18.Hz20.Uz(t_start:t_end,5));
+[sagebrush_UyUz_cospectra_ww, sagebrush_UyUz_cospectra_ff]...
+    = cospectra(sagebrush.oct18.Hz20.Uy(t_start:t_end,5),...
+    sagebrush.oct18.Hz20.Uz(t_start:t_end,5));
 
-[playa_UxUz_spectra_ww, playa_UxUz_spectra_ff]...
-    = spectra(playa.oct18.Hz20.Ux(t_start:t_end,5),...
-    playa.oct18.Hz20.Uz(t_start:T_end,5));
-[playa_UyUz_spectra_ww, playa_UyUz_spectra_ff]...
-    = spectra(playa.oct18.Hz20.Uy(t_start:t_end,5),...
-    playa.oct18.Hz20.Uz(t_start:T_end,5));
+[playa_UxUz_cospectra_ww, playa_UxUz_cospectra_ff]...
+    = cospectra(playa.oct18.Hz20.Ux(t_start:t_end,5),...
+    playa.oct18.Hz20.Uz(t_start:t_end,5));
+[playa_UyUz_cospectra_ww, playa_UyUz_cospectra_ff]...
+    = cospectra(playa.oct18.Hz20.Uy(t_start:t_end,5),...
+    playa.oct18.Hz20.Uz(t_start:t_end,5));
+%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                           Plot Spectra
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+pst = 5;
+pend = length(playa_Ux_spectra_ff);
 
 figure();
-loglog(playa_Ux_spectra_ww,playa_Ux_spectra_ff,'r--')
+loglog(playa_Ux_spectra_ww(pst:pend),playa_Ux_spectra_ff(pst:pend),'r-')
 hold on
-loglog(sagebrush_Ux_spectra_ww,sagebrush_Ux_spectra_ff,'b-')
+loglog(sagebrush_Ux_spectra_ww(pst:pend),sagebrush_Ux_spectra_ff(pst:pend),'b-')
 ww_slope = 0.05:0.1:3;
 loglog(ww_slope, 10^-6.5 * ww_slope.^(-5/3),'k-')
 set(gca,'fontsize', 15)
@@ -823,9 +827,9 @@ xlabel('f (Hz)', 'interpreter','latex','fontsize',25)
 legend('Playa','Sagebrush','(-5/3) slope')
 
 figure();
-loglog(playa_Uy_spectra_ww,playa_Uy_spectra_ff,'r--')
+loglog(playa_Uy_spectra_ww(pst:pend),playa_Uy_spectra_ff(pst:pend),'r-')
 hold on
-loglog(sagebrush_Uy_spectra_ww,sagebrush_Uy_spectra_ff,'b-')
+loglog(sagebrush_Uy_spectra_ww(pst:pend),sagebrush_Uy_spectra_ff(pst:pend),'b-')
 ww_slope = 0.05:0.1:3;
 loglog(ww_slope, 10^-6.5 * ww_slope.^(-5/3),'k-')
 set(gca,'fontsize', 15)
@@ -835,9 +839,9 @@ xlabel('f (Hz)', 'interpreter','latex','fontsize',25)
 legend('Playa','Sagebrush','(-5/3) slope')
 
 figure();
-loglog(playa_Uz_spectra_ww,playa_Uz_spectra_ff,'r--')
+loglog(playa_Uz_spectra_ww(pst:pend),playa_Uz_spectra_ff(pst:pend),'r-')
 hold on
-loglog(sagebrush_Uz_spectra_ww,sagebrush_Uz_spectra_ff,'b-')
+loglog(sagebrush_Uz_spectra_ww(pst:pend),sagebrush_Uz_spectra_ff(pst:pend),'b-')
 ww_slope = 0.05:0.1:3;
 loglog(ww_slope, 10^-6.5 * ww_slope.^(-5/3),'k-')
 set(gca,'fontsize', 15)
@@ -847,7 +851,7 @@ xlabel('f (Hz)', 'interpreter','latex','fontsize',25)
 legend('Playa','Sagebrush','(-5/3) slope')
 
 figure();
-loglog(playa_T_spectra_ww,playa_T_spectra_ff,'r--')
+loglog(playa_T_spectra_ww,playa_T_spectra_ff,'r-')
 hold on
 loglog(sagebrush_T_spectra_ww,sagebrush_T_spectra_ff,'b-')
 ww_slope = 0.05:0.1:3;
@@ -858,11 +862,10 @@ title('$S_{TT}$', 'interpreter','latex','fontsize',25)
 xlabel('f (Hz)', 'interpreter','latex','fontsize',25)
 legend('Playa','Sagebrush','(-5/3) slope')
 
-
 figure();
-loglog(playa_UxUz_spectra_ww,playa_UxUz_spectra_ff,'r--')
+loglog(playa_UxUz_cospectra_ww(pst:pend),playa_UxUz_cospectra_ff(pst:pend),'r-')
 hold on
-loglog(sagebrush_UxUz_spectra_ww,sagebrush_UxUz_spectra_ff,'b-')
+loglog(sagebrush_UxUz_cospectra_ww(pst:pend),sagebrush_UxUz_cospectra_ff(pst:pend),'b-')
 set(gca,'fontsize', 15)
 ylabel('$S_{uw}$', 'interpreter','latex','fontsize',20);
 title('$S_{uw}$', 'interpreter','latex','fontsize',25)
@@ -870,11 +873,11 @@ xlabel('f (Hz)', 'interpreter','latex','fontsize',25)
 legend('Playa','Sagebrush')
 
 figure();
-loglog(playa_UyUz_spectra_ww,playa_UyUz_spectra_ff,'r--')
+loglog(playa_UyUz_cospectra_ww(pst:pend),playa_UyUz_cospectra_ff(pst:pend),'r-')
 hold on
-loglog(sagebrush_UyUz_spectra_ww,sagebrush_UyUz_spectra_ff,'b-')
+loglog(sagebrush_UyUz_cospectra_ww(pst:pend),sagebrush_UyUz_cospectra_ff(pst:pend),'b-')
 set(gca,'fontsize', 15)
-ylabel('$S_{uw}$', 'interpreter','latex','fontsize',20);
-title('$S_{uw}$', 'interpreter','latex','fontsize',25)
+ylabel('$S_{vw}$', 'interpreter','latex','fontsize',20);
+title('$S_{vw}$', 'interpreter','latex','fontsize',25)
 xlabel('f (Hz)', 'interpreter','latex','fontsize',25)
 legend('Playa','Sagebrush')
