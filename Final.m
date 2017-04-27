@@ -10,6 +10,10 @@
 % 1st Mat 2017
 % Written by Byron Eng, Matt Moody, & Travis Morrison
 
+%Options:
+reloaddata = true; %Reload all the data. Set this to true for first run
+
+if reloaddata
 %clear vars/close windows & command line
 clear all; close all; clc;
 %% Load/Preparing Data 
@@ -112,6 +116,9 @@ N = length(playa.oct18.Hz20.Ux(:,1));
     playa.oct18.Hz20.Uz_fluct, playa.oct18.Hz20.ws_wd ] = ...
     rotate_data( freq,period,N, playa.oct18.Hz20.Ux, playa.oct18.Hz20.Uy,...
     playa.oct18.Hz20.Uz,length(playa_z),detrend_chunk );
+
+end %if reloaddata
+    
 %%  1.
 %Simple Time Averaging: calculate (a) 30-minute averages of u, v, w, and T, as well as (b) ws, wd,
 % ?u, ?v, ?w, w0T0,s, u?, Hs, tke, L, and w? (if appropriate), where ws and wd are average wind speed
