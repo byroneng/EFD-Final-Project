@@ -626,8 +626,28 @@ axis([0 15 -1 1]);
 
 
 %% 4. 
-% Dissipation: Using Taylor?s frozen turbulence hypothesis, calculate the dissipation rate of turbulent
+% Dissipation: Using Taylor's frozen turbulence hypothesis, calculate the dissipation rate of turbulent
 % kinetic energy for several 30-minute periods. Calculate the Kolmogorov length scale.
+chunk = 30*60*20;
+t_start = chunk*num_chuck;
+t_end = t_start+chunk;
+
+IDX = 3;
+diss_rate_playa     = zeros(IDX);
+kol_length_playa    = zeros(IDX);
+diss_rate_sagebrush = zeros(IDX);
+kol_length_sagebrush = zeros(IDX);
+for i=1:IDX
+    Vel_mag_playa = sqrt(playa.oct18.Hz20.Ux(t_start:t_end,5).^2 ...
+        + playa.oct18.Hz20.Uy(t_start:t_end,5).^2);
+    [diss_rate_playa(i) kol_length_playa(i)] = taylors(Vel_mag_playa);
+    
+    Vel_mag_sagebrush = sqrt(sagebrush.oct18.Hz20.Ux(t_start:t_end,5).^2 ...
+        + sagebrush.oct18.Hz20.Uy(t_start:t_end,5).^2);
+    [diss_rate_sagebrush(i) kol_length_sagebrush(i)] = taylors(Vel_mag_sagebrush);
+    t_start = t_end;
+    t_end =t_start+chunk;
+end
 
 %% 5.
 %  Turbulence Spectra: For at least one 30-minute averaging period, calculate the following turbulent
