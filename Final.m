@@ -12,6 +12,7 @@
 
 %Options:
 reloaddata = true; %Reload all the data. Set this to true for first run
+recalc = true; %Recalculate things like PDFs, CDFs, etc.
 
 if reloaddata
 %clear vars/close windows & command line
@@ -133,6 +134,8 @@ end %if reloaddata
 %                           Calculate PDF and CDF
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+if recalc
+
 chunk = 30*60*1;
 t_start = chunk*num_chuck;
 t_end = t_start+chunk;
@@ -221,6 +224,7 @@ for z = 1:length(playa_z) %U
         playa.oct18.Hz20.Uz_mean(z))./(playa.oct18.Hz20.Uz_std(z)*2^.5)));
 end
 
+end %if recalc
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                         Plot CDF and PDF
@@ -388,6 +392,9 @@ xlabel('T ($^\circ C$)', 'interpreter','latex','fontsize',20);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                           Calculate 3rd and 4th moments
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+if recalc
+
 %Skewness and Kurtosis corr on u,v,and w
 chunk = 30*60*20;
 t_start = chunk*num_chuck;
@@ -459,7 +466,7 @@ for z = 1:length(playa_z)
 end
 %toc
 
-
+end %if recalc
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                           Plot Autocorrelations
