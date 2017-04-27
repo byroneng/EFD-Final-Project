@@ -10,6 +10,11 @@
 % 1st Mat 2017
 % Written by Byron Eng, Matt Moody, & Travis Morrison
 
+%Options:
+reloaddata = true; %Reload all the data. Set this to true for first run
+recalc = true; %Recalculate things like PDFs, CDFs, etc.
+
+if reloaddata
 %clear vars/close windows & command line
 clear all; close all; clc;
 %% Load/Preparing Data 
@@ -99,20 +104,26 @@ N = length(sagebrush.oct18.Hz20.Ux(:,1)); %number of data points
 freq = 20; % [Hz]
 period = N/freq; %period of interest [seconds]
 detrend_chunk = 60*30*20; %number of points we detrend from (30 min)
-for i = 1: length(sagebrush_z)
-[ sagebrush.oct18.Hz20.Ux(:,i), sagebrush.oct18.Hz20.Uy(:,i), sagebrush.oct18.Hz20.Uz(:,i),...
-    sagebrush.oct18.Hz20.Ux_fluct(:,i), sagebrush.oct18.Hz20.Uy_fluct(:,i),...
-    sagebrush.oct18.Hz20.Uz_fluct(:,i), sagebrush.oct18.Hz20.ws_wd(:,i) ] = ...
-    rotate_data( freq,period,N, sagebrush.oct18.Hz20.Ux(:,i), sagebrush.oct18.Hz20.Uy(:,i), ...
-    sagebrush.oct18.Hz20.Uz(:,i), length(sagebrush_z), detrend_chunk);
-end
+
+[ sagebrush.oct18.Hz20.Ux, sagebrush.oct18.Hz20.Uy, sagebrush.oct18.Hz20.Uz,...
+    sagebrush.oct18.Hz20.Ux_fluct, sagebrush.oct18.Hz20.Uy_fluct,...
+    sagebrush.oct18.Hz20.Uz_fluct, sagebrush.oct18.Hz20.ws_wd ] = ...
+    rotate_data( freq,period,N, sagebrush.oct18.Hz20.Ux, sagebrush.oct18.Hz20.Uy, ...
+    sagebrush.oct18.Hz20.Uz, length(sagebrush_z), detrend_chunk);
+
 N = length(playa.oct18.Hz20.Ux(:,1));
-for i = 1: length(playa_z)
-[ playa.oct18.Hz20.Ux(:,i), playa.oct18.Hz20.Uy(:,i), playa.oct18.Hz20.Uz(:,i),...
-    playa.oct18.Hz20.Ux_fluct(:,i), playa.oct18.Hz20.Uy_fluct(:,i),...
-    playa.oct18.Hz20.Uz_fluct(:,i), playa.oct18.Hz20.ws_wd(:,i) ] = ...
-    rotate_data( freq,period,N, playa.oct18.Hz20.Ux(:,i), playa.oct18.Hz20.Uy,...
+
+[ playa.oct18.Hz20.Ux, playa.oct18.Hz20.Uy, playa.oct18.Hz20.Uz,...
+    playa.oct18.Hz20.Ux_fluct, playa.oct18.Hz20.Uy_fluct,...
+    playa.oct18.Hz20.Uz_fluct, playa.oct18.Hz20.ws_wd ] = ...
+    rotate_data( freq,period,N, playa.oct18.Hz20.Ux, playa.oct18.Hz20.Uy,...
     playa.oct18.Hz20.Uz,length(playa_z),detrend_chunk );
+
+<<<<<<< Updated upstream
+end %if reloaddata
+    
+=======
+>>>>>>> Stashed changes
 %%  1.
 %Simple Time Averaging: calculate (a) 30-minute averages of u, v, w, and T, as well as (b) ws, wd,
 % ?u, ?v, ?w, w0T0,s, u?, Hs, tke, L, and w? (if appropriate), where ws and wd are average wind speed
@@ -126,6 +137,8 @@ for i = 1: length(playa_z)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                           Calculate PDF and CDF
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+if recalc
 
 chunk = 30*60*1;
 t_start = chunk*num_chuck;
@@ -215,6 +228,7 @@ for z = 1:length(playa_z) %U
         playa.oct18.Hz20.Uz_mean(z))./(playa.oct18.Hz20.Uz_std(z)*2^.5)));
 end
 
+end %if recalc
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                         Plot CDF and PDF
@@ -298,7 +312,9 @@ end
 set(gca,'fontsize', 15)
 legend('25.5 m','19.4','10.4','5.3','2.02','0.61')
 xlabel('T ($^\circ C$)', 'interpreter','latex','fontsize',20);
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                         Plot CDF 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure()
 subplot(4,2,1)
 for z = 1:length(sagebrush_z)
@@ -466,10 +482,98 @@ legend('Sagebrush','Playa')
 ylabel('z (m)', 'interpreter','latex','fontsize',20);
 axis([15 20 0.55 25.5])
 grid on
+
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                         Plot momentum correlations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+chunk1 = 30*60*1;
+t_start1 = chunk1*num_chuck;
+t_end1 = t_start1+chunk1;
+
+sagebrush.oct18.Hz1.T_fluct = sagebrush.oct18.Hz1.T(t_start1:t_end1,:) -...
+    mean(sagebrush.oct18.Hz1.T(t_start1:t_end1,:),1);
+
+playa.oct18.Hz1.T_fluct = playa.oct18.Hz1.T(t_start1:t_end1,:) -...
+    mean(playa.oct18.Hz1.T(t_start1:t_end1,:),1);
+h = 3; 
+figure()
+subplot(3,2,1)
+plot(sagebrush.oct18.Hz20.Uy_fluct(t_start:t_end,h),sagebrush.oct18.Hz20.Ux_fluct(t_start:t_end,h),'r*');
+hold on
+plot(playa.oct18.Hz20.Uy_fluct(t_start:t_end,h),playa.oct18.Hz20.Ux_fluct(t_start:t_end,h),'bo');
+set(gca,'fontsize', 15)
+xlabel('$v^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+legend('Sagebrush','Playa')
+ylabel('$u^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+axis([-2 2 -3 3])
+line([-5 5],[0 0],'LineWidth', 5,'k')
+grid on
+
+subplot(3,2,2)
+plot(sagebrush.oct18.Hz20.Uz_fluct(t_start:t_end,h),sagebrush.oct18.Hz20.Ux_fluct(t_start:t_end,h),'r*');
+hold on
+plot(playa.oct18.Hz20.Uz_fluct(t_start:t_end,h),playa.oct18.Hz20.Ux_fluct(t_start:t_end,h),'bo');
+set(gca,'fontsize', 15)
+xlabel('$u^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+legend('Sagebrush','Playa')
+ylabel('$w^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+axis([-2 2 -3 3])
+grid on
+
+subplot(3,2,3)
+plot(sagebrush.oct18.Hz20.Uz_fluct(t_start:t_end,h),sagebrush.oct18.Hz20.Uy_fluct(t_start:t_end,h),'r*');
+hold on
+plot(playa.oct18.Hz20.Uz_fluct(t_start:t_end,h),playa.oct18.Hz20.Uy_fluct(t_start:t_end,h),'bo');
+set(gca,'fontsize', 15)
+xlabel('$u^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+legend('Sagebrush','Playa')
+ylabel('$w^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+axis([-2 2 -3 3])
+grid on
+
+subplot(3,2,4)
+plot(sagebrush.oct18.Hz1.T_fluct(:,h),sagebrush.oct18.Hz20.Uz_fluct(t_start:20:t_end,h),'r*');
+hold on
+plot(playa.oct18.Hz1.T_fluct(:,h),playa.oct18.Hz20.Uz_fluct(t_start:20:t_end,h),'bo');
+set(gca,'fontsize', 15)
+xlabel('$T^\prime$ ($^\circ$C)', 'interpreter','latex','fontsize',20);
+legend('Sagebrush','Playa')
+ylabel('$w^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+axis([-2 2 -3 3])
+grid on
+
+subplot(3,2,5)
+plot(sagebrush.oct18.Hz1.T_fluct(:,h),sagebrush.oct18.Hz20.Ux_fluct(t_start:20:t_end,h),'r*');
+hold on
+plot(playa.oct18.Hz1.T_fluct(:,h),playa.oct18.Hz20.Ux_fluct(t_start:20:t_end,h),'bo');
+set(gca,'fontsize', 15)
+xlabel('$T^\prime$ ($^\circ$C)', 'interpreter','latex','fontsize',20);
+legend('Sagebrush','Playa')
+ylabel('$u^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+axis([-2 2 -3 3])
+grid on
+
+subplot(3,2,6)
+plot(sagebrush.oct18.Hz1.T_fluct(:,h),sagebrush.oct18.Hz20.Uy_fluct(t_start:20:t_end,h),'r*');
+hold on
+plot(playa.oct18.Hz1.T_fluct(:,h),playa.oct18.Hz20.Uy_fluct(t_start:20:t_end,h),'bo');
+set(gca,'fontsize', 15)
+xlabel('$T^\prime$ ($^\circ$C)', 'interpreter','latex','fontsize',20);
+legend('Sagebrush','Playa')
+ylabel('$v^\prime$ (ms$^{-1}$)', 'interpreter','latex','fontsize',20);
+axis([-2 2 -3 3])
+grid on
+
+
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                           Calculate 3rd and 4th moments
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+if recalc
+
 %Skewness and Kurtosis corr on u,v,and w
 chunk = 30*60*20;
 t_start = chunk*num_chuck;
@@ -541,7 +645,7 @@ for z = 1:length(playa_z)
 end
 %toc
 
-
+end %if recalc
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                           Plot Autocorrelations
@@ -617,4 +721,89 @@ axis([0 15 -1 1]);
 % energy spectra: Suu, Svv, Sww, ST T , as well as the following cospectra: Suw, Svw, Swt. What do
 % these spectra indicate about the analyzed boundary layer? Is there an inertial subrange?
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                           Calculate Turbulence Spectra
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Turbulence Spectra Suu, Svv, Sww, Stt
+% Cospectra Suw, Svw, Swt
+% Calculated using 2 meter height sensor
+chunk = 30*60*20;
+t_start = chunk*num_chuck;
+t_end = t_start+chunk;
+
+[sagebrush_Ux_spectra_ww, sagebrush_Ux_spectra_ff]...
+    = spectra(sagebrush.oct18.Hz20.Ux(t_start:t_end,5));
+[sagebrush_Uy_spectra_ww, sagebrush_Uy_spectra_ff]...
+    = spectra(sagebrush.oct18.Hz20.Uy(t_start:t_end,5));
+[sagebrush_Uz_spectra_ww, sagebrush_Uz_spectra_ff]...
+    = spectra(sagebrush.oct18.Hz20.Uz(t_start:t_end,5));
+
+[playa_Ux_spectra_ww, playa_Ux_spectra_ff]...
+    = spectra(playa.oct18.Hz20.Ux(t_start:t_end,5));
+[playa_Uy_spectra_ww, playa_Uy_spectra_ff]...
+    = spectra(playa.oct18.Hz20.Uy(t_start:t_end,5));
+[playa_Uz_spectra_ww, playa_Uz_spectra_ff]...
+    = spectra(playa.oct18.Hz20.Uz(t_start:t_end,5));
+
+%Spectra on T
+chunk = 30*60*1;
+t_start = chunk*num_chuck;
+t_end = t_start+chunk;
+
+[playa_T_spectra_ww, playa_T_spectra_ff]...
+    = spectra(playa.oct18.Hz1.T(t_start:t_end,5));
+[sagebrush_T_spectra_ww, sagebrush_T_spectra_ff]...
+    = spectra(sagebrush.oct18.Hz1.T(t_start:t_end,5));
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                           Plot Spectra
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+figure();
+loglog(playa_Ux_spectra_ww,playa_Ux_spectra_ff,'r--')
+hold on
+loglog(sagebrush_Ux_spectra_ww,sagebrush_Ux_spectra_ff,'b-')
+ww_slope = 0.05:0.1:3;
+loglog(ww_slope, 10^-6.5 * ww_slope.^(-5/3),'k-')
+set(gca,'fontsize', 15)
+ylabel('$S_{uu}$', 'interpreter','latex','fontsize',20);
+title('$S_{uu}$', 'interpreter','latex','fontsize',25)
+xlabel('f (Hz)', 'interpreter','latex','fontsize',25)
+legend('Playa','Sagebrush','(-5/3) slope')
+
+figure();
+loglog(playa_Uy_spectra_ww,playa_Uy_spectra_ff,'r--')
+hold on
+loglog(sagebrush_Uy_spectra_ww,sagebrush_Uy_spectra_ff,'b-')
+ww_slope = 0.05:0.1:3;
+loglog(ww_slope, 10^-6.5 * ww_slope.^(-5/3),'k-')
+set(gca,'fontsize', 15)
+ylabel('$S_{vv}$', 'interpreter','latex','fontsize',20);
+title('$S_{vv}$', 'interpreter','latex','fontsize',25)
+xlabel('f (Hz)', 'interpreter','latex','fontsize',25)
+legend('Playa','Sagebrush','(-5/3) slope')
+
+figure();
+loglog(playa_Uz_spectra_ww,playa_Uz_spectra_ff,'r--')
+hold on
+loglog(sagebrush_Uz_spectra_ww,sagebrush_Uz_spectra_ff,'b-')
+ww_slope = 0.05:0.1:3;
+loglog(ww_slope, 10^-6.5 * ww_slope.^(-5/3),'k-')
+set(gca,'fontsize', 15)
+ylabel('$S_{ww}$', 'interpreter','latex','fontsize',20);
+title('$S_{ww}$', 'interpreter','latex','fontsize',25)
+xlabel('f (Hz)', 'interpreter','latex','fontsize',25)
+legend('Playa','Sagebrush','(-5/3) slope')
+
+figure();
+loglog(playa_T_spectra_ww,playa_T_spectra_ff,'r--')
+hold on
+loglog(sagebrush_T_spectra_ww,sagebrush_T_spectra_ff,'b-')
+ww_slope = 0.05:0.1:3;
+loglog(ww_slope, 10^-6.5 * ww_slope.^(-5/3),'k-')
+set(gca,'fontsize', 15)
+ylabel('$S_{TT}$', 'interpreter','latex','fontsize',20);
+title('$S_{TT}$', 'interpreter','latex','fontsize',25)
+xlabel('f (Hz)', 'interpreter','latex','fontsize',25)
+legend('Playa','Sagebrush','(-5/3) slope')
 
