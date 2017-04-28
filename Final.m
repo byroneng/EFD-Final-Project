@@ -128,8 +128,187 @@ end %if reloaddata
 %Simple Time Averaging: calculate (a) 30-minute averages of u, v, w, and T, as well as (b) ws, wd,
 % ?u, ?v, ?w, w0T0,s, u?, Hs, tke, L, and w? (if appropriate), where ws and wd are average wind speed
 % and direction, respectively. Describe the stability during the analyzed period.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                          Part a) u, v, w, and T
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+if recalc
+
+%20 hz data
+chunk = 30*60*20; %30 minutes @ 20 Hz
+for nn = 1:floor(size(sagebrush.oct18.Hz20.Ux,1)/chunk)
+t_start = 1+(chunk*(nn-1));
+t_end = t_start+chunk;
+
+for z = 1:length(sagebrush_z)
+%mean
+sagebrush.oct18.Hz20.Ux_mean(nn,z) = mean(sagebrush.oct18.Hz20.Ux(t_start:t_end,z),1,'omitnan');
+sagebrush.oct18.Hz20.Uy_mean(nn,z) = mean(sagebrush.oct18.Hz20.Uy(t_start:t_end,z),1,'omitnan');
+sagebrush.oct18.Hz20.Uz_mean(nn,z) = mean(sagebrush.oct18.Hz20.Uz(t_start:t_end,z),1,'omitnan');
+end
+end
+
+%20 hz data
+chunk = 30*60*20; %30 minutes @ 20 Hz
+for nn = 1:floor(size(playa.oct18.Hz20.Ux,1)/chunk)
+t_start = 1+(chunk*(nn-1));
+t_end = t_start+chunk;
+
+for z = 1:length(playa_z)
+playa.oct18.Hz20.Ux_mean(nn,z) = mean(playa.oct18.Hz20.Ux(t_start:t_end,z),1,'omitnan');
+playa.oct18.Hz20.Uy_mean(nn,z) = mean(playa.oct18.Hz20.Uy(t_start:t_end,z),1,'omitnan');
+playa.oct18.Hz20.Uz_mean(nn,z) = mean(playa.oct18.Hz20.Uz(t_start:t_end,z),1,'omitnan');
+end
+end
+
+%1 hz data
+chunk = 30*60*1; %30 minutes @ 1 Hz
+for nn = 1:floor(size(sagebrush.oct18.Hz1.T,1)/chunk)
+t_start = 1+(chunk*(nn-1));
+t_end = t_start+chunk;
+
+for z = 1:length(sagebrush_z)
+sagebrush.oct18.Hz1.T_mean(nn,z) = mean(sagebrush.oct18.Hz1.T(t_start:t_end,z),1,'omitnan');
+end
+end
+
+%1 hz data
+chunk = 30*60*1; %30 minutes @ 1 Hz
+for nn = 1:floor(size(playa.oct18.Hz1.T,1)/chunk)
+t_start = 1+(chunk*(nn-1));
+t_end = t_start+chunk;
+
+for z = 1:length(playa_z)
+playa.oct18.Hz1.T_mean(nn,z) = mean(playa.oct18.Hz1.T(t_start:t_end,z),1,'omitnan');
+end
+end
+
+%                   Part b) wsbar, wdbar, sigu, sigv, sigw 
 
 
+% sagebrush.oct18.Hz20.ws_wd for wsbar and wdbar
+
+%sigu, sigv, sigw
+
+%20 hz data
+chunk = 30*60*20; %30 minutes @ 20 Hz
+for nn = 1:floor(size(sagebrush.oct18.Hz20.Ux,1)/chunk)
+t_start = 1+(chunk*(nn-1));
+t_end = t_start+chunk;
+
+for z = 1:length(sagebrush_z)
+sagebrush.oct18.Hz20.Ux_std(nn,z) = std(sagebrush.oct18.Hz20.Ux(t_start:t_end,z),0,1,'omitnan');
+sagebrush.oct18.Hz20.Uy_std(nn,z) = std(sagebrush.oct18.Hz20.Uy(t_start:t_end,z),0,1,'omitnan');
+sagebrush.oct18.Hz20.Uz_std(nn,z) = std(sagebrush.oct18.Hz20.Uz(t_start:t_end,z),0,1,'omitnan');
+end
+end
+
+%20 hz data
+chunk = 30*60*20; %30 minutes @ 20 Hz
+for nn = 1:floor(size(playa.oct18.Hz20.Ux,1)/chunk)
+t_start = 1+(chunk*(nn-1));
+t_end = t_start+chunk;
+
+for z = 1:length(playa_z)
+playa.oct18.Hz20.Ux_std(nn,z) = std(playa.oct18.Hz20.Ux(t_start:t_end,z),0,1,'omitnan');
+playa.oct18.Hz20.Uy_std(nn,z) = std(playa.oct18.Hz20.Uy(t_start:t_end,z),0,1,'omitnan');
+playa.oct18.Hz20.Uz_std(nn,z) = std(playa.oct18.Hz20.Uz(t_start:t_end,z),0,1,'omitnan');        
+end
+end
+
+%                   wpTpbar
+%20 hz data conv to 1 Hz average
+chunk = 20;
+for nn = 1:floor(size(sagebrush.oct18.Hz20.Uz_fluct,1)/chunk)
+t_start = 1+(chunk*(nn-1));
+t_end = t_start+chunk;
+
+for z = 1:length(sagebrush_z)
+    sagebrush.oct18.Hz1.Uz_fluct(nn,z) = mean(sagebrush.oct18.Hz20.Uz_fluct(t_start:t_end,z));
+end
+end
+
+chunk = 30*60*1; %30 minutes @ 1 Hz
+for nstep = 1:size(sagebrush.oct18.Hz1.T_mean,1)
+for z = 1:length(sagebrush_z)
+T_mean = sagebrush.oct18.Hz1.T_mean(nstep,z).*ones(chunk,1);
+t_start = 1 + (chunk*(nstep-1));
+t_end = t_start + chunk - 1;
+sagebrush.oct18.Hz1.wpTpbar(nstep,z) = mean(sagebrush.oct18.Hz1.Uz_fluct(t_start:t_end,z).* ...
+                                            (sagebrush.oct18.Hz1.T(t_start:t_end,z)-T_mean),'omitnan');
+end
+end
+
+%20 hz data conv to 1 Hz average
+chunk = 20;
+for nn = 1:floor(size(playa.oct18.Hz20.Uz_fluct,1)/chunk)
+t_start = 1+(chunk*(nn-1));
+t_end = t_start+chunk;
+
+for z = 1:length(playa_z)
+    playa.oct18.Hz1.Uz_fluct(nn,z) = mean(playa.oct18.Hz20.Uz_fluct(t_start:t_end,z));
+end
+end
+
+chunk = 30*60*1; %30 minutes @ 1 Hz
+for nstep = 1:size(playa.oct18.Hz1.T_mean,1)
+for z = 1:length(playa_z)
+T_mean = playa.oct18.Hz1.T_mean(nstep,z).*ones(chunk,1);
+t_start = 1 + (chunk*(nstep-1));
+t_end = t_start + chunk - 1;
+playa.oct18.Hz1.wpTpbar(nstep,z) = mean(playa.oct18.Hz1.Uz_fluct(t_start:t_end,z).* ...
+                                            (playa.oct18.Hz1.T(t_start:t_end,z)-T_mean),'omitnan');
+end
+end
+
+% ustar
+
+for z = 1:length(sagebrush_z)
+sagebrush.oct18.Hz20.UxUz_fluct(:,z) = sagebrush.oct18.Hz20.Ux_fluct(:,z).*sagebrush.oct18.Hz20.Uz_fluct(:,z);
+sagebrush.oct18.Hz20.UyUz_fluct(:,z) = sagebrush.oct18.Hz20.Uy_fluct(:,z).*sagebrush.oct18.Hz20.Uz_fluct(:,z);
+sagebrush.oct18.Hz20.ustar(z) = sqrt(sqrt((mean(sagebrush.oct18.Hz20.UxUz_fluct(:,z),'omitnan').^2) ...
+                                        + (mean(sagebrush.oct18.Hz20.UyUz_fluct(:,z),'omitnan').^2)));
+end
+
+for z = 1:length(playa_z)
+playa.oct18.Hz20.UxUz_fluct(:,z) = playa.oct18.Hz20.Ux_fluct(:,z).*playa.oct18.Hz20.Uz_fluct(:,z);
+playa.oct18.Hz20.UyUz_fluct(:,z) = playa.oct18.Hz20.Uy_fluct(:,z).*playa.oct18.Hz20.Uz_fluct(:,z);
+playa.oct18.Hz20.ustar(z) = sqrt(sqrt((mean(playa.oct18.Hz20.UxUz_fluct(:,z),'omitnan').^2) ...
+                                        + (mean(playa.oct18.Hz20.UyUz_fluct(:,z),'omitnan').^2)));
+end 
+
+% Hs
+
+Cp = 1004; % J K^-1 kg^-1
+rho = 1.25; % kg m^-3
+
+for z = 1:length(sagebrush_z)
+sagebrush.oct18.Hz1.Hs(:,z) = Cp * rho * sagebrush.oct18.Hz1.wpTpbar(:,z);
+end
+for z = 1:length(playa_z)
+playa.oct18.Hz1.Hs(:,z) = Cp * rho * playa.oct18.Hz1.wpTpbar(:,z);
+end
+
+
+%tke
+
+for z = 1:length(sagebrush_z)
+sagebrush.oct18.Hz20.tke(z) = .5 * mean((sagebrush.oct18.Hz20.Ux_fluct(:,z).*sagebrush.oct18.Hz20.Ux_fluct(:,z)) ...
+                            + (sagebrush.oct18.Hz20.Uy_fluct(:,z).*sagebrush.oct18.Hz20.Uy_fluct(:,z)) ...
+                            + (sagebrush.oct18.Hz20.Uz_fluct(:,z).*sagebrush.oct18.Hz20.Uz_fluct(:,z)),'omitnan');
+end
+
+for z = 1:length(playa_z)
+playa.oct18.Hz20.tke(z) = .5 * mean((playa.oct18.Hz20.Ux_fluct(:,z).*playa.oct18.Hz20.Ux_fluct(:,z)) ...
+                            + (playa.oct18.Hz20.Uy_fluct(:,z).*playa.oct18.Hz20.Uy_fluct(:,z)) ...
+                            + (playa.oct18.Hz20.Uz_fluct(:,z).*playa.oct18.Hz20.Uz_fluct(:,z)),'omitnan');
+end
+                        
+%L, and wstar (not required)
+
+
+
+end %if recalc
 
 %% 2.
 % Probability Distributions: For a representative 30-minute averaging period, generate a CDF and PDF
