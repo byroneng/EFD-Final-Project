@@ -558,7 +558,7 @@ ylabel('z (m)','interpreter','latex','fontsize',20)
 legend('Playa','Sagebrush')
 hold off
 
-%% 2.
+%% 2. PDF CDF
 % Probability Distributions: For a representative 30-minute averaging period, generate a CDF and PDF
 % for u, v, w, and T and report the skewness and kurtosis.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -821,7 +821,7 @@ end
 set(gca,'fontsize', 15)
 legend('25.5 m','19.4','10.4','5.3','2.02','0.61')
 xlabel('T ($^\circ C$)', 'interpreter','latex','fontsize',20);
-%%
+%%  Plot u and T vertical profiles
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                         Plot u and T vertical profiles
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -910,7 +910,7 @@ ylabel('z (m)', 'interpreter','latex','fontsize',20);
 axis([15 20 0.55 25.5])
 grid on
 
-%%
+%% Plot momentum correlations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                         Plot momentum correlations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

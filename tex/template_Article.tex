@@ -20,6 +20,7 @@ XXX
 \section{Introduction}
 
 \section{Results}
+%background on data 
 Data was provided from the Sagebrush and Playa sites for October 18-19th. Both sites harvested data from meteorological towers equipped with fast response sonic anemometers at multiple heights (18.8 m, 10.15 m, 5.87 m, 2.04 m, and 0.55 m for Sagebrush and 25.5 m,19.4 m, 10.4 m, 5.3 m, 2.02 m, 0.61m for Playa). The variables of interest measured were the three components of velocity (captured at 20 Hz), temperature, relative humidity (captured at 1 Hz). As a post-processing step the analysis,  velocity data components were rotated based on 30-minute block averages, with $u$ denoting the mean wind direction, $v$ as the velocity horizontally perpendicular to the mean flow, $u$, and $w$ as the vertical velocity. Fluctuations from the mean were also calculated from a 30-minute block average. 
 
 % Byron talks about part 1)
@@ -28,11 +29,7 @@ Data was provided from the Sagebrush and Playa sites for October 18-19th. Both s
 To better understand the impacts of vegetation on boundary layer flow, examination of a highly convective time, 1500-1530 MST (2100-2130 UCT), was further analyzed. Characteristics of this period include a mean wind speed and direction of.... . 
 The Probability Distribution Function (PDF) for this time period was calculated for each velocity component and temperature at all heights (Figure \ref{fig:pdf}). The largest contrast between the two sites exist between the mean wind velocity component and the temperature. Beginning with $u$ at the sagebrush site the velocity distribution's mean value shifts towards larger values with height, while at the Playa a more uniformed mean velocity is maintained with height. Additionally, differences between the temperature PDF's between the two sites can be observed. At the Sagebrush site, the lower two heights (0.55 and 2.04 m) report much larger mean temperature values ($\sim$19.5$^\circ$ C) than the other heights ($\sim$19.5$^\circ$ C) , while at the Playa site, the temperature varies less with height ($\sim$ 15-16.5 $^\circ$ C). Note at the Sagebrush site the temperature PDF at 0.55 m shows the largest variance. These features can potentially be attributed to the vegetation. Due to the low surface vegetation at the Sagebrush site, increased drag reduces the near surface velocity and increases energy storage (higher surface temperature).  
 
-NEED SOURCES
 
-Examination of this idea can be further seen in Table \ref{tab:kurt_sage} and Table \ref{tab:kurt_playa}, where the kurtosis and skewness is presented with height and variable. The red and blue color boxes correlate to the near surface $u$ velocity. At the Sagebrush the skewness nears 0 at the surface, increasing with height and a kurtosis less than 3. While at the Playa, there is a positive skew near the surface, which decreases with height with a decreasing kurtosis. 
-
-Figure \ref{fig:cdf} presents the Cumulative Distribution Function (CDF). Focusing on the third row (CDF $w$) one can now see of the increased distribution of vertical velocities with height at both heights. This is due to the convective nature of the period of interest. Figure \ref{fig:autocorr} presents the autocorrelation function for the velocity components and the temperature at both sites. The autocorrelation was computed for the 30 minutes of interest, 15 minutes is presented. $u$, $v$, and $T$ show fairly linearly decays in time, while $w$ decays rapidly to 0. Interesting features in Figure \ref{fig:autocorr} are seen in the autocorrelation of $u$ at the Sagebrush and Playa. At the Sagebrush we observe a more rapid decay of correlation at the lower heights, while at the Playa, all heights remain share the same correlation with time. 
 
 It appears the increased mixing at the surface of the Sagebrush creates a more equally well distributed velocity. 
 
@@ -45,7 +42,7 @@ It appears the increased mixing at the surface of the Sagebrush creates a more e
 	\caption{Collection of probability distributions from the Sagebrush (\textbf{left}) and the Playa (\textbf{right} sites). From top to bottom PDF $u$, PDF $v$,  PDF $w$ and PDF $T$ . }
 	\label{fig:pdf}
 \end{figure}
-
+Examination of this idea can be further seen in Table \ref{tab:kurt_sage} and Table \ref{tab:kurt_playa}, where the kurtosis and skewness is presented with height and variable. The red and blue color boxes correlate to the near surface $u$ velocity. At the Sagebrush the skewness nears 0 at the surface, increasing with height and a kurtosis less than 3. While at the Playa, there is a positive skew near the surface, which decreases with height with a decreasing kurtosis. 
 %Create table of Skewness and Kurtosis
 \begin{table}
 \begin{tabular}{ |p{1cm}|p{2cm}|p{1cm}|p{1cm}|p{1cm}| p{1.5cm}|}
@@ -104,6 +101,7 @@ It appears the increased mixing at the surface of the Sagebrush creates a more e
 \label{tab:kurt_playa}
 \caption{Skewness and kurtosis values for the Playa site on October 19th from 1500-1530 MST. }
 \end{table}
+Figure \ref{fig:cdf} presents the Cumulative Distribution Function (CDF). Focusing on the third row (CDF $w$) one can now see of the increased distribution of vertical velocities with height at both heights. This is due to the convective nature of the period of interest. Figure \ref{fig:autocorr} presents the autocorrelation function for the velocity components and the temperature at both sites. The autocorrelation was computed for the 30 minutes of interest, 15 minutes is presented. $u$, $v$, and $T$ show fairly linearly decays in time, while $w$ decays rapidly to 0. Interesting features in Figure \ref{fig:autocorr} are seen in the autocorrelation of $u$ at the Sagebrush and Playa. At the Sagebrush we observe a more rapid decay of correlation at the lower heights, while at the Playa, all heights remain share the same correlation with time (decrease at the same rate). 
 %plot CDFs
 \begin{figure}
 \centering
@@ -111,7 +109,6 @@ It appears the increased mixing at the surface of the Sagebrush creates a more e
 \caption{}
 \label{fig:cdf}
 \end{figure}
-
 %plot Autocorr
 \begin{figure}
 	\centering
@@ -119,7 +116,7 @@ It appears the increased mixing at the surface of the Sagebrush creates a more e
 	\caption{}
 	\label{fig:autocorr}
 \end{figure}
-
+Additionally, further turbulence analysis was performed on on the data from the two sites. Figure \ref{fig:u_T} presents the temperature with height (right) of the two sites, while the left column presents (from top to bottom) the mean velocity with height, instantaneous plots of $u^\prime$,  $v^\prime$, and $w^\prime$ with height. The data presented is only of the period of interest. From the temperature profile, we observe a large energy storage (2$^\circ$C) at the surface layer compared to the Playa. In the mean velocity we also observe the impact of the sagebrush on the mean flow, creating a large drag at the surface. Examination of the fluctuations reveals the  
 %plot u mean, T mean u' v' and w'
 \begin{figure}
 	\centering
