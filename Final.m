@@ -11,12 +11,12 @@
 % Written by Byron Eng, Matt Moody, & Travis Morrison
 
 %Options:
-reloaddata = true; %Reload all the data. Set this to true for first run
+reloaddata = false; %Reload all the data. Set this to true for first run
 recalc = true; %Recalculate things like PDFs, CDFs, etc.
 
 if reloaddata
 %clear vars/close windows & command line
-clear all; close all; clc;
+clearvars -except recalc; close all; clc;
 %% Load/Preparing Data 
 
 %Tower heights
@@ -119,11 +119,8 @@ N = length(playa.oct18.Hz20.Ux(:,1));
     rotate_data( freq,period,N, playa.oct18.Hz20.Ux, playa.oct18.Hz20.Uy,...
     playa.oct18.Hz20.Uz,length(playa_z),detrend_chunk );
 
-<<<<<<< Updated upstream
 end %if reloaddata
-    
-=======
->>>>>>> Stashed changes
+
 %%  1.
 %Simple Time Averaging: calculate (a) 30-minute averages of u, v, w, and T, as well as (b) ws, wd,
 % ?u, ?v, ?w, w0T0,s, u?, Hs, tke, L, and w? (if appropriate), where ws and wd are average wind speed
