@@ -332,6 +332,43 @@ end
 
 end %if recalc
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Plots for part 1
+
+
+figure()
+subplot(1,2,1)
+plot(mean(playa.oct18.Hz1.L,1),playa_z)
+hold on
+plot(mean(sagebrush.oct18.Hz1.L,1),sagebrush_z)
+title('Mean Obukhov Length', 'interpreter','latex','fontsize',25)
+xlabel('$\bar{L}$', 'interpreter','latex','fontsize',25)
+ylabel('z (m)', 'interpreter','latex','fontsize',25)
+hold off
+
+subplot(2,2,2)
+plot(1:size(playa.oct18.Hz1.L,1),playa.oct18.Hz1.L(:,1))
+hold on
+for z = 2:length(playa_z)
+plot(1:size(playa.oct18.Hz1.L,1),playa.oct18.Hz1.L(:,z))
+end
+title('Playa Obukhov Length', 'interpreter', 'latex', 'fontsize',25)
+xlabel('Time')
+ylabel('L')
+hold off
+
+subplot(2,2,4)
+plot(1:size(sagebrush.oct18.Hz1.L,1),sagebrush.oct18.Hz1.L(:,1))
+hold on
+for z = 2:length(sagebrush_z)
+plot(1:size(sagebrush.oct18.Hz1.L,1),sagebrush.oct18.Hz1.L(:,z))
+end
+title('Sagebrush Obukhov Length', 'interpreter', 'latex', 'fontsize',25)
+xlabel('Time')
+ylabel('L')
+hold off
+
+
 %% 2.
 % Probability Distributions: For a representative 30-minute averaging period, generate a CDF and PDF
 % for u, v, w, and T and report the skewness and kurtosis.
