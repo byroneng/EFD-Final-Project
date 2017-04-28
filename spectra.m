@@ -28,10 +28,11 @@ end
     ti=ti+T/nbins;
     lll=length(u2);
     N=length(u2);
-    p = abs(fft(u2))/(N/2); %% absolute value of the fft
-    p = p(1:N/2).^2;
+    IDX = floor(N/2);
+    p = abs(fft(u2))/(IDX); %% absolute value of the fft
+    p = p(1:IDX).^2;
     L=length(p);
-    ww(k,1:L) = Fn * (0:N/2-1)/ (N/2-1);
+    ww(k,1:L) = Fn * (0:IDX-1)/ (IDX-1);
     ffiuu2(k,1:L)=p;
 end
 s=size(ffiuu2);

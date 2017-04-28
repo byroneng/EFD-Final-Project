@@ -32,10 +32,11 @@ end
     ti=ti+T/nbins;
     lll=length(u2);
     N=length(u2);
+    IDX = floor(N/2);
     p = (real(fft(u2)) .* real(fft(v2))  + imag(fft(v2)) .* imag(fft(v2)))/((N/2)^2);
-    p = p(1:N/2);
+    p = p(1:IDX);
     L=length(p);
-    ww(k,1:L) = Fn * (0:N/2-1)/ (N/2-1);
+    ww(k,1:L) = Fn * (0:IDX-1)/ (IDX-1);
     ffiuu2(k,1:L)=p;
 end
 s=size(ffiuu2);
