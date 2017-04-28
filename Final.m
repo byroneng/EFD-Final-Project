@@ -381,6 +381,7 @@ hold off
 
 
 %% Rotated Velocities
+%Playa
 figure()
 subplot(3,1,1)
 sdate = datenum('10-18-2012') + (((1:size(playa.oct18.Hz20.Ux_mean,1))-1)/(24*2)); %30 minute spacing
@@ -427,8 +428,55 @@ datetick('x','mm/dd')
 legend('25.5 m','19.4','10.4','5.3','2.02','0.61')
 hold off
 
+%Sagebrush
+figure()
+subplot(3,1,1)
+sdate = datenum('10-18-2012') + (((1:size(sagebrush.oct18.Hz20.Ux_mean,1))-1)/(24*2)); %30 minute spacing
+hold on
+for z = 1:length(sagebrush_z)
+%Ux
+plot(sdate,sagebrush.oct18.Hz20.Ux_mean(:,z))
+end
+title('Sagebrush $\bar{u}$', 'interpreter', 'latex', 'fontsize',25)
+ylim([0 8])
+xlabel('Time (UTC)', 'interpreter', 'latex', 'fontsize',20)
+ylabel('$\bar{u}$ $(m/s)$', 'interpreter', 'latex', 'fontsize',20)
+datetick('x','mm/dd')
+legend('18.6 m','10.15','5.87','2.04','0.55')
+hold off
+
+subplot(3,1,2)
+%Uy
+sdate = datenum('10-18-2012') + (((1:size(sagebrush.oct18.Hz20.Uy_mean,1))-1)/(24*2)); %30 minute spacing
+hold on
+for z = 1:length(sagebrush_z)
+plot(sdate,sagebrush.oct18.Hz20.Uy_mean(:,z))
+end
+title('Sagebrush $\bar{v}$', 'interpreter', 'latex', 'fontsize',25)
+ylim([0 .0001])
+xlabel('Time (UTC)', 'interpreter', 'latex', 'fontsize',20)
+ylabel('$\bar{v}$ $(m/s)$', 'interpreter', 'latex', 'fontsize',20)
+datetick('x','mm/dd')
+legend('18.6 m','10.15','5.87','2.04','0.55')
+hold off
+
+subplot(3,1,3)
+%Uz
+sdate = datenum('10-18-2012') + (((1:size(sagebrush.oct18.Hz20.Uz_mean,1))-1)/(24*2)); %30 minute spacing
+hold on
+for z = 1:length(sagebrush_z)
+plot(sdate,sagebrush.oct18.Hz20.Uz_mean(:,z))
+end
+title('Sagebrush $\bar{w}$', 'interpreter', 'latex', 'fontsize',25)
+ylim([0 .00001])
+xlabel('Time (UTC)', 'interpreter', 'latex', 'fontsize',20)
+ylabel('$\bar{w}$ $(m/s)$', 'interpreter', 'latex', 'fontsize',20)
+datetick('x','mm/dd')
+legend('18.6 m','10.15','5.87','2.04','0.55')
+hold off
 
 %% Wind Speed/Direction
+%playa
 figure()
 subplot(2,1,1)
 %ws
@@ -440,20 +488,51 @@ end
 title('Playa $ws$', 'interpreter','latex','fontsize',25)
 xlabel('Time (UTC)','interpreter','latex','fontsize',20)
 ylabel('$ws$ $(m/s)$','interpreter','latex','fontsize',20)
+ylim([0 6])
 datetick('x','mm/dd')
 legend('25.5 m','19.4','10.4','5.3','2.02','0.61')
 hold off
 
 subplot(2,1,2)
 %wind rose
-h = rose(playa.oct18.Hz20.ws_wd.dir(:,4)*pi/180,playa.oct18.Hz20.ws_wd.meanU(:,4));
+h = rose(playa.oct18.Hz20.ws_wd.dir(:,2)*pi/180);
 set(h,'Visible','off')
 hold on
 for z = 1:length(playa_z)
-rose(playa.oct18.Hz20.ws_wd.dir(:,z)*pi/180,playa.oct18.Hz20.ws_wd.meanU(:,z))
+rose(playa.oct18.Hz20.ws_wd.dir(:,z)*pi/180)
 end
 set(gca,'FontSize',20)
-title('Wind Speed \& Direction','interpreter','latex','fontsize',25)
+title('Wind Direction Frequency','interpreter','latex','fontsize',25)
+view([90 -90])
+hold off
+
+%sagebrush
+figure()
+subplot(2,1,1)
+%ws
+sdate = datenum('10-18-2012') + (((1:size(sagebrush.oct18.Hz20.ws_wd.meanU,1))-1)/(24*60*60*20)); %20 Hz spacing
+hold on
+for z = 1:length(sagebrush_z)
+plot(sdate,sagebrush.oct18.Hz20.ws_wd.meanU(:,z))
+end
+title('Sagebrush $ws$', 'interpreter','latex','fontsize',25)
+xlabel('Time (UTC)','interpreter','latex','fontsize',20)
+ylabel('$ws$ $(m/s)$','interpreter','latex','fontsize',20)
+ylim([0 6])
+datetick('x','mm/dd')
+legend('18.6 m','10.15','5.87','2.04','0.55')
+hold off
+
+subplot(2,1,2)
+%wind rose
+h = rose(sagebrush.oct18.Hz20.ws_wd.dir(:,2)*pi/180);
+set(h,'Visible','off')
+hold on
+for z = 1:length(sagebrush_z)
+rose(sagebrush.oct18.Hz20.ws_wd.dir(:,z)*pi/180)
+end
+set(gca,'FontSize',20)
+title('Wind Direction Frequency','interpreter','latex','fontsize',25)
 view([90 -90])
 hold off
 
