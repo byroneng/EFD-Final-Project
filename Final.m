@@ -335,7 +335,7 @@ end %if recalc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Plots for part 1
 
-
+%%Obukhov Length
 figure()
 subplot(1,2,1)
 plot(mean(playa.oct18.Hz1.L,1),playa_z)
@@ -344,30 +344,127 @@ plot(mean(sagebrush.oct18.Hz1.L,1),sagebrush_z)
 title('Mean Obukhov Length', 'interpreter','latex','fontsize',25)
 xlabel('$\bar{L}$', 'interpreter','latex','fontsize',25)
 ylabel('z (m)', 'interpreter','latex','fontsize',25)
+legend('Playa','Sagebrush')
+ylim([0 25.5])
 hold off
 
 subplot(2,2,2)
-plot(1:size(playa.oct18.Hz1.L,1),playa.oct18.Hz1.L(:,1))
+plot(1:size(playa.oct18.Hz1.L,1),smooth(playa.oct18.Hz1.L(:,1),'rlowess'))
 hold on
 for z = 2:length(playa_z)
-plot(1:size(playa.oct18.Hz1.L,1),playa.oct18.Hz1.L(:,z))
+plot(1:size(playa.oct18.Hz1.L,1),smooth(playa.oct18.Hz1.L(:,z),'rlowess'))
 end
 title('Playa Obukhov Length', 'interpreter', 'latex', 'fontsize',25)
 xlabel('Time')
 ylabel('L')
+legend('25.5 m','19.4','10.4','5.3','2.02','0.61','Location','northwest')
+%ylim([-1000 1500])
 hold off
 
 subplot(2,2,4)
-plot(1:size(sagebrush.oct18.Hz1.L,1),sagebrush.oct18.Hz1.L(:,1))
+plot(1:size(sagebrush.oct18.Hz1.L,1),smooth(sagebrush.oct18.Hz1.L(:,1),'rlowess'))
 hold on
 for z = 2:length(sagebrush_z)
-plot(1:size(sagebrush.oct18.Hz1.L,1),sagebrush.oct18.Hz1.L(:,z))
+plot(1:size(sagebrush.oct18.Hz1.L,1),smooth(sagebrush.oct18.Hz1.L(:,z),'rlowess'))
 end
 title('Sagebrush Obukhov Length', 'interpreter', 'latex', 'fontsize',25)
 xlabel('Time')
 ylabel('L')
+legend('18.6 m','10.15','5.87','2.04','0.55','Location','northwest')
+%ylim([-1000 1500])
 hold off
 
+
+%% Rotated Velocities
+figure()
+subplot(3,1,1)
+hold on
+for z = 1:length(playa_z)
+%Ux
+plot(playa.oct18.Hz20.Ux_mean(:,z))
+end
+title('Playa $\bar{u}$', 'interpreter', 'latex', 'fontsize',25)
+ylim([0 8])
+xlabel('Time', 'interpreter', 'latex', 'fontsize',20)
+ylabel('$\bar{u}$ $(m/s)$', 'interpreter', 'latex', 'fontsize',20)
+legend('25.5 m','19.4','10.4','5.3','2.02','0.61')
+hold off
+
+subplot(3,1,2)
+%Uy
+hold on
+for z = 1:length(playa_z)
+plot(playa.oct18.Hz20.Uy_mean(:,z))
+end
+title('Playa $\bar{v}$', 'interpreter', 'latex', 'fontsize',25)
+ylim([0 .0001])
+xlabel('Time', 'interpreter', 'latex', 'fontsize',20)
+ylabel('$\bar{v}$ $(m/s)$', 'interpreter', 'latex', 'fontsize',20)
+legend('25.5 m','19.4','10.4','5.3','2.02','0.61')
+hold off
+
+subplot(3,1,3)
+%Uz
+hold on
+for z = 1:length(playa_z)
+plot(playa.oct18.Hz20.Uz_mean(:,z))
+end
+title('Playa $\bar{w}$', 'interpreter', 'latex', 'fontsize',25)
+ylim([0 .00001])
+xlabel('Time', 'interpreter', 'latex', 'fontsize',20)
+ylabel('$\bar{w}$ $(m/s)$', 'interpreter', 'latex', 'fontsize',20)
+legend('25.5 m','19.4','10.4','5.3','2.02','0.61')
+hold off
+
+
+%% Wind Speed/Direction
+figure()
+subplot(2,1,1)
+%ws
+hold on
+for z = 1:length(playa_z)
+plot(playa.oct18.Hz20.ws_wd.meanU(:,z))
+end
+title('Playa $ws$', 'interpreter','latex','fontsize',25)
+xlabel('Time','interpreter','latex','fontsize',20)
+ylabel('$ws$ $(m/s)$','interpreter','latex','fontsize',20)
+legend('25.5 m','19.4','10.4','5.3','2.02','0.61')
+hold off
+
+subplot(2,1,2)
+%wind rose
+h = rose(playa.oct18.Hz20.ws_wd.dir(:,4)*pi/180,playa.oct18.Hz20.ws_wd.meanU(:,4));
+set(h,'Visible','off')
+hold on
+for z = 1:length(playa_z)
+rose(playa.oct18.Hz20.ws_wd.dir(:,z)*pi/180,playa.oct18.Hz20.ws_wd.meanU(:,z))
+end
+set(gca,'FontSize',20)
+title('Wind Speed & Direction','interpreter','latex','fontsize',25)
+view([90 -90])
+hold off
+
+%% Hs and TKE
+figure()
+subplot(1,2,1)
+plot(mean(playa.oct18.Hz1.Hs,1),playa_z)
+hold on
+plot(mean(sagebrush.oct18.Hz1.Hs,1),sagebrush_z)
+title('Sensible Heat Flux','interpreter','latex','fontsize',25)
+xlabel('$\bar{H_s}$','interpreter','latex','fontsize',20)
+ylabel('z (m)','interpreter','latex','fontsize',20)
+legend('Playa','Sagebrush')
+hold off
+
+subplot(1,2,2)
+plot(mean(playa.oct18.Hz20.tke,1),playa_z)
+hold on
+plot(mean(sagebrush.oct18.Hz20.tke,1),sagebrush_z)
+title('Turbulence Kinetic Energy','interpreter','latex','fontsize',25)
+xlabel('$\bar{TKE}$','interpreter','latex','fontsize',20)
+ylabel('z (m)','interpreter','latex','fontsize',20)
+legend('Playa','Sagebrush')
+hold off
 
 %% 2.
 % Probability Distributions: For a representative 30-minute averaging period, generate a CDF and PDF
