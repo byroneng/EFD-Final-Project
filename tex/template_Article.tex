@@ -24,6 +24,75 @@ XXX
 Data was provided from the Sagebrush and Playa sites for October 18-19th. Both sites harvested data from meteorological towers equipped with fast response sonic anemometers at multiple heights (18.8 m, 10.15 m, 5.87 m, 2.04 m, and 0.55 m for Sagebrush and 25.5 m,19.4 m, 10.4 m, 5.3 m, 2.02 m, 0.61m for Playa). The variables of interest measured were the three components of velocity (captured at 20 Hz), temperature, relative humidity (captured at 1 Hz). As a post-processing step the analysis,  velocity data components were rotated based on 30-minute block averages, with $u$ denoting the mean wind direction, $v$ as the velocity horizontally perpendicular to the mean flow, $u$, and $w$ as the vertical velocity. Fluctuations from the mean were also calculated from a 30-minute block average. 
 
 % Byron talks about part 1)
+$\bar{u}$, $\bar{v}$, and $\bar{w}$ were calculated using the rotated velocity data. $\bar{v}$ and $\bar{w}$ are close to zero (order of $10^{-4}$ and $10^{-5}$, respectively) for the entire observation period (Figures~\ref{fig:playarotate} and~\ref{fig:sagerotate}) verifying that the rotation algorithm performed as expected. Velocity perturbations ($u'$, $v'$, and $w'$) were calculated using these mean values. 30-minute block averages and perturbations were also calculated for temperature, $T$ (measured at 1 Hz).
+
+Sensible heat flux ($H_s$) was calculated for both sites using Equation~\ref{eq:hs}. Where $C_p$ is the specific heat of dry air at constant pressure, and $\rho$ is the density of air.
+
+\begin{equation}
+H_s = C_p \cdot \rho \cdot \overline{w'T'}
+\label{eq:hs}
+\end{equation}
+
+Turbulence kinetic energy ($TKE$) was calculated for both sites using Equation~\ref{eq:tke}. 
+
+\begin{equation}
+TKE = \frac{1}{2}~ \overline{u'^2 + v'^2 + w'^2}
+\label{eq:tke}
+\end{equation}
+
+Figure~\ref{fig:hstke} shows comparisons for $H_s$ and $TKE$ at both sites. Vegetation at the Sagebrush site appears to inhibit sensible heat flux at all observed heights, indicating surface heat storage induced by vegetation. Sagebrush near-surface $TKE$ also appears inhibited by vegetation which is compensated by a sharp $TKE$ increase just above the surface. The Playa site shows a more uniform distribution of $TKE$ at all observed heights.
+
+\begin{equation}
+L = \frac{u_*}{\kappa~ \overline{w'T'}}
+\label{eq:L}
+\end{equation}
+
+Equation~\ref{eq:L} shows the calculation used for Obukhov length ($L$), where $\kappa$ is the Kolmogorov constant (assumed equal to 0.4), and $u_* = \sqrt[4]{\overline{u'w'}^2 + \overline{v'w'}^2}$. The time series of $L$ (Figure~\ref{fig:L}) show that the Playa had more near-surface instability during the observation period. However, approximately 2 meters above the surface $L$ at the Playa remained near zero for the majority of the observation period while $L$ fluctuated between positive and negative with greater amplitude at the Sagebrush site. 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{playarotate}
+	\caption{30-minute block averages of $\bar{u}$, $\bar{v}$, and $\bar{w}$ from the Playa.}
+	\label{fig:playarotate}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{sagerotate}
+	\caption{30-minute block averages of $\bar{u}$, $\bar{v}$, and $\bar{w}$ from the Sagebrush site.}
+	\label{fig:sagerotate}
+\end{figure}
+
+%I don't think these fit in anywhere, but if we can find a way to use them that would be cool!
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=\textwidth]{playawind}
+%	\caption{Wind speed and wind rose for the Playa. Wind rose wedge size shows the frequency of datapoints from each direction.}
+%	\label{fig:playawind}
+%\end{figure}
+%
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=\textwidth]{sagewind}
+%	\caption{Wind speed and wind rose for the Sagebrush site. Wind rose wedge size shows the frequency of datapoints from each direction.}
+%	\label{fig:sagewind}
+%\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{hstke}
+	\caption{$H_s$ and $TKE$ comparisons. Values at each height were averaged over the observation period.}
+	\label{fig:hstke}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{oblength}
+	\caption{Obukhov length comparison. Mean Obukhov length plotted at each height (\textbf{left}), and time series (\textbf{right}) for both sites. Time series data were smoothed, giving little weight to outliers, using a variation of Loess Smoothing.}
+	\label{fig:L}
+\end{figure}
+
+
 
 %Part 2 and 3~ Travis
 To better understand the impacts of vegetation on boundary layer flow, examination of a highly convective time, 1500-1530 MST (2100-2130 UCT), was further analyzed. Characteristics of this period include a mean wind speed and direction of.... . 
