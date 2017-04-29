@@ -12,6 +12,11 @@
 
 \documentclass{beamer}
 
+\usepackage{wrapfig}
+\usepackage[style=authoryear]{biblatex}
+
+\bibliography{presentref.bib}
+
 % There are many different themes available for Beamer. A comprehensive
 % list with examples is given here:
 % http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
@@ -73,7 +78,7 @@
 % - Not really informative to the audience, more for people (including
 %   yourself) who are reading the slides online
 
-\subject{Theoretical Computer Science}
+%\subject{Theoretical Computer Science}
 % This is only inserted into the PDF information catalog. Can be left
 % out. 
 
@@ -115,20 +120,46 @@
 \subsection{Motivation}
 \begin{frame}{Motivation}
 
+
+	\begin{itemize}
+	\item {Benefits of understanding turbulence}
+		\begin{itemize}
+		\item {NWP}
+		\item {Industry}
+		\item {Aviation}
+		\end{itemize}
+	\item {Modelling turbulence}
+		\begin{itemize}
+		\item {Turbulence is random -- difficult to model}
+		\item {More difficult around complex terrain \& vegetation}
+		\item {Current methods inaccurate in some environments}
+		\end{itemize}
+	\end{itemize}
+	\begin{figure}
+		\includegraphics[scale=.3]{pictures/canopy.jpg}
+\\ \tiny{\textit{Image source: http://www.windlab.com/technology/turbulence}}
+	\end{figure}
+
+
 \end{frame}
 
 \subsection{MATERHORN Data}
 
-\begin{frame}{First Slide Title}{Optional Subtitle}
+\begin{frame}{MATERHORN}{Overview}
   \begin{itemize}
-  \item {
-    My first point.
-  }
-  \item {
-    My second point.
-  }
+  \item {MATERHORN Goals:}
+  	\begin{itemize}
+  	\item {Study limitations of current models in complex terrain}
+  	\item {Improve prediction methods}
+  	\end{itemize}
   \end{itemize}
-\end{frame}
+  \begin{figure}
+  \includegraphics[scale=.4]{pictures/complex.jpeg}
+\\  \tiny{\textit{\cite{MATERHORN}}} %I don't know why the citations are messed up
+  \end{figure}
+  \end{frame}
+
+
 
 %\subsection{sample text}
 %
