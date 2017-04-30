@@ -1,6 +1,8 @@
 \documentclass[]{article}
 \usepackage{graphicx}
-%\usepackage[table]{xcolor}
+\usepackage[table]{xcolor}
+
+
 
 %plots path
 \graphicspath{ {plots/} }
@@ -18,7 +20,7 @@ XXX
 \end{abstract}
 
 \section{Introduction}
-
+\cite{MATERHORN}
 \section{Results}
 %background on data 
 Data was provided from the Sagebrush and Playa sites for October 18-19th. Both sites harvested data from meteorological towers equipped with fast response sonic anemometers at multiple heights (18.8 m, 10.15 m, 5.87 m, 2.04 m, and 0.55 m for Sagebrush and 25.5 m,19.4 m, 10.4 m, 5.3 m, 2.02 m, 0.61m for Playa). The variables of interest measured were the three components of velocity (captured at 20 Hz), temperature, relative humidity (captured at 1 Hz). As a post-processing step the analysis,  velocity data components were rotated based on 30-minute block averages, with $u$ denoting the mean wind direction, $v$ as the velocity horizontally perpendicular to the mean flow, $u$, and $w$ as the vertical velocity. Fluctuations from the mean were also calculated from a 30-minute block average. 
@@ -212,4 +214,6 @@ Figure \ref{fig:mom_05} and Figure \ref{fig:mom_20} presents the fluctuation cor
  %Additional work
  Additionally the authors would like to examine the impact of different de-trending times, such as \cite{} whose analysis utilizes a 5 minute de-trending period for evening transitions. 
 
+\bibliographystyle{apalike}
+\bibliography{references}
 \end{document}
