@@ -12,7 +12,7 @@
 
 \documentclass{beamer}
 \usepackage{subfigure}
-\usepackage{subcaption}
+%\usepackage{subcaption}
 \usepackage{wrapfig}
 
 
@@ -154,7 +154,7 @@
   \end{itemize}
   \begin{figure}
   \includegraphics[scale=.4]{pictures/complex.jpeg}
-\\  \tiny{\textit{\cite{MATERHORN}}} %I don't know why the citations are messed up
+\\  \tiny{\textit{Fernando et. al., 2015}} %I don't know why the citations are messed up
   \end{figure}
   \end{frame}
   
@@ -168,7 +168,7 @@
 	\minipage{0.4\textwidth}
 	\centering
 		\includegraphics[width=\linewidth]{pictures/sitemap}
-		\\ \tiny{\textit{\cite{jensen2016observations}}}
+		\\ \tiny{\textit{Jensen et. al., 2016}}
 	\endminipage\hfill
 	\minipage{0.30\textwidth}
 	\centering
@@ -292,9 +292,8 @@
 \begin{frame}{Dissipation}
 Dissipation rates calculated at 10 m tower height.
 \begin{table}
-\begin{minipage}[b]{0.45\linewidth}
 \centering
-\begin{tabular}{| p || p | p |}
+\begin{tabular}{|c|c|c|}
 	\hline
 	\multicolumn{3}{|c|}{Dissipation Rate} \\
 	\hline
@@ -304,22 +303,24 @@ Dissipation rates calculated at 10 m tower height.
 	6:30 am & 0.0021 & 0.0011 \\
 	7:00 am & 0.00077 & 0.00055 \\
 	\hline
-\end{tabular}
-\end{minipage}%
-\begin{minipage}[b]{0.45\linewidth}
+\end{tabular}%
+\end{table}
+\end{frame}
+
+\begin{frame}{Dissipation}
+\begin{table}
 \centering
-\begin{tabular}{| p || p | p |}
+\begin{tabular}{|c|c|c|}
 	\hline
 	\multicolumn{3}{|c|}{Kolmogorov Length} \\
 	\hline
 	& Playa & Sagebrush \\
 	\hline
-	6:00 am & 1.55 mm & 2.36 \\
-	6:30 am & 1.51 & 1.79 \\
-	7:00 am & 1.93 & 2.11 \\
+	6:00 am & 1.55 mm & 2.36 mm\\
+	6:30 am & 1.51 mm & 1.79 mm\\
+	7:00 am & 1.93 mm & 2.11 mm\\
 	\hline
-\end{tabular}
-\end{minipage}%
+\end{tabular}%
 \end{table}
 \end{frame}
 
@@ -345,16 +346,16 @@ Differences in turbulence spectra and Kolmogorov lengths for tower heights at Sa
 \begin{itemize}
 \item{Kolmogorov Lengths}
 	\begin{itemize}
-	\item{2 m & $\leftarrow$ Length Scale = 0.06 mm}
-	\item{10 m &$\leftarrow$ Length Scale = 2.11 mm}
+	\item{2 m $\rightarrow$ Length Scale = 0.06 mm}
+	\item{10 m $\rightarrow$ Length Scale = 2.11 mm}
 	\end{itemize}
 \item{Dissipation Rate}
 	\begin{itemize}
-	\item{2 m &$\leftarrow$ Dissipation Rate $\approx$ 800}
-	\item{10 m &$\leftarrow$ Dissipation Rate = 0.0015}
+	\item{2 m $\rightarrow$ Dissipation Rate $\approx$ 800}
+	\item{10 m $\rightarrow$ Dissipation Rate = 0.0015}
 	\end{itemize}
 \item{Turbulence Cascade} 
-\end{itemize}
+\end{itemize}%
 \end{frame}
 
 
