@@ -11,7 +11,8 @@
 % notice. 
 
 \documentclass{beamer}
-
+\usepackage{subfigure}
+\usepackage{subcaption}
 \usepackage{wrapfig}
 
 
@@ -239,26 +240,52 @@
 
 %%%%%%%%%%%%%%%%%%%%%% Travis presents his stuff %%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Analysis}
-
+%PDFs
 \subsection{Probability Distributions}
-
-\begin{frame}{Blocks}
-\begin{block}{Block Title}
-You can also highlight sections of your presentation in a block, with it's own title
-\end{block}
-\begin{theorem}
-There are separate environments for theorems, examples, definitions and proofs.
-\end{theorem}
-\begin{example}
-Here is an example of an example block.
-\end{example}
+\begin{frame}{Probability Distribution}
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{plots/pdf}
+\caption{PDF for velocity and temperature for each height during period of interest, 3pm MST on October 19th, 2012}
+\label{fig:pdf}
+\end{figure}
 \end{frame}
 
+\begin{frame}{Turbulence and Temperature analysis}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\linewidth]{plots/u_T}
+		\caption{Sagebrush (red) and Playa (blue) mean velocity (top left), velocity fluctuations (left) and temperature (right) for each height during period of interest, 3pm MST on October 19th, 2012}
+		\label{fig:pdf}
+	\end{figure}
+\end{frame}
+%Autocorrelation
 \subsection{Autocorrelation}
 \begin{frame}{Autocorrelation}
-
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\linewidth]{plots/auto_corr_fig}
+		\caption{Autocorrelations for velocity and temperature for each height during period of interest, 3pm MST on October 19th, 2012}
+		\label{fig:auto_corr_fig}
+	\end{figure}
+\end{frame}
+%Correlations
+\begin{frame}
+	\begin{figure}[t!]
+        \centering
+		\includegraphics[width=0.7\textwidth]{plots/momentum_corr_05m}
+		\caption{Correlations for momentum and heat flux for 0.5 m during period of interest, 3pm MST on October 19th, 2012}
+	\end{figure}
 \end{frame}
 
+\begin{frame}
+	\begin{figure}[t!]
+		\centering
+		\includegraphics[width=0.7\textwidth]{plots/momentum_corr_20m}
+		\caption{Correlations for momentum and heat flux for 20 m during period of interest, 3pm MST on October 19th, 2012}
+	\end{figure}
+	
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%% Matt Presents his stuff %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Dissipation}
@@ -318,13 +345,13 @@ Differences in turbulence spectra and Kolmogorov lengths for tower heights at Sa
 \begin{itemize}
 \item{Kolmogorov Lengths}
 	\begin{itemize}
-	\item{2 m $\leftarrow$ Length Scale = 0.06 mm}
-	\item{10 m &\leftarrow$ Length Scale = 2.11 mm}
+	\item{2 m & $\leftarrow$ Length Scale = 0.06 mm}
+	\item{10 m &$\leftarrow$ Length Scale = 2.11 mm}
 	\end{itemize}
 \item{Dissipation Rate}
 	\begin{itemize}
-	\item{2 m $\leftarrow$ Dissipation Rate $\approx$ 800}
-	\item{10 m &\leftarrow$ Dissipation Rate = 0.0015}
+	\item{2 m &$\leftarrow$ Dissipation Rate $\approx$ 800}
+	\item{10 m &$\leftarrow$ Dissipation Rate = 0.0015}
 	\end{itemize}
 \item{Turbulence Cascade} 
 \end{itemize}
@@ -336,13 +363,14 @@ Differences in turbulence spectra and Kolmogorov lengths for tower heights at Sa
 \section*{Summary}
 
 \begin{frame}{Summary}
+	Contrasting surface heterogeneities at the Playa and Sagebrush sites were examined by study of the flow near the surface. Noticeable differences from the study are:  
   \begin{itemize}
   \item
-    The \alert{first main message} of your talk in one or two lines.
+    The Sagebrush site \alert{has increased dissipation, energy storage, and larger contribution of high frequency eddies} as a result of the increased surface roughness.
   \item
-    The \alert{second main message} of your talk in one or two lines.
-  \item
-    Perhaps a \alert{third message}, but not more than that.
+    The Playa site demonstrated \alert{stronger autocorrelations along all heights}.
+  \item 
+	  The impacts of the vegetation at the Sagebrush site \alert{diminish by 10 m.}
   \end{itemize}
   
   \begin{itemize}
@@ -350,9 +378,9 @@ Differences in turbulence spectra and Kolmogorov lengths for tower heights at Sa
     Outlook
     \begin{itemize}
     \item
-      Something you haven't solved.
+      A Multi-Resolution Decomposition should be performed to determine correct detrending time and to further understand dominate length scales. 
     \item
-      Something else you haven't solved.
+      Begin to include data which includes spatial information, such as thermal imagery, LEMs, soil moisture measurements.  
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -360,15 +388,15 @@ Differences in turbulence spectra and Kolmogorov lengths for tower heights at Sa
 
 
 % All of the following is optional and typically not needed. 
-\appendix
-\section<presentation>*{\appendixname}
-\subsection<presentation>*{For Further Reading}
+%\appendix
+%\section<presentation>*{\appendixname}
+%\subsection<presentation>*{For Further Reading}
 
-\begin{frame}[allowframebreaks]
-  \frametitle<presentation>{References}
+%\begin{frame}[allowframebreaks]
+ % \frametitle<presentation>{References}
     
-\bibliography{references}
-\bibliographystyle{apalike}    
+%\bibliography{references}
+%\bibliographystyle{apalike}    
 %  \begin{thebibliography}{10}
 %    
 %  \beamertemplatebookbibitems
@@ -389,7 +417,7 @@ Differences in turbulence spectra and Kolmogorov lengths for tower heights at Sa
 %    \newblock {\em Journal of This and That}, 2(1):50--100,
 %    2000.
 %  \end{thebibliography}
-\end{frame}
+%\end{frame}
 
 
 

@@ -1,0 +1,8 @@
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Motivation}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{MATERHORN Data}{5}{0}{1}
+\beamer@sectionintoc {2}{Analysis}{13}{0}{2}
+\beamer@subsectionintoc {2}{1}{Probability Distributions}{13}{0}{2}
+\beamer@subsectionintoc {2}{2}{Autocorrelation}{16}{0}{2}
+\beamer@subsectionintoc {2}{3}{Dissipation}{20}{0}{2}
+\beamer@subsectionintoc {2}{4}{Turbulence Spectra}{22}{0}{2}
