@@ -16,9 +16,9 @@
 
 \maketitle
 
-\begin{abstract}
-XXX
-\end{abstract}
+%\begin{abstract}
+%XXX
+%\end{abstract}
 
 \section{Introduction}
 The Mountain Terrain Atmospheric Modeling and Observations (MATERHORN, \citealt{MATERHORN}) Program provides an array of atmospheric observations suitable to investigate and advance many areas of scientific interest. Near-surface flow in areas with vegetation and complex terrain remains an area of weakness in current Numerical Weather Prediction (NWP) models, turbulence closure models, and boundary layer parameterizations \citep{MATERHORN}. In this study, boundary layer characteristics from two MATERHORN observation sites (Sagebrush and Playa) are investigated. The contrast in surface roughness between the two sites are expected to affect dissipation, mixing, and heat flux.
@@ -140,6 +140,7 @@ Table \ref{tab:kurt_sage} and Table \ref{tab:kurt_playa} present the kurtosis an
 \label{tab:kurt_sage}
 \caption{Skewness and kurtosis values for the Sagebrush site on October 19th from 1500-1530 MST. }
 \end{table}
+
 \begin{table}
 \begin{tabular}{ |p{1cm}|p{1.5cm}|p{1cm}|p{1.25cm}|p{1cm}| p{1.25cm}|}
 	\hline
@@ -174,14 +175,14 @@ Figure \ref{fig:cdf} presents the Cumulative Distribution Function (CDF). Focusi
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{cdf}
-\caption{}
+	\caption{Collection of cumulative distributions from the Sagebrush (\textbf{left}) and the Playa (\textbf{right} sites). From top to bottom CDF $u$, CDF $v$,  CDF $w$ and CDF $T$ . }
 \label{fig:cdf}
 \end{figure}
 %plot Autocorr
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{auto_corr_fig}
-	\caption{}
+	\caption{Collection of autocorrelations from the Sagebrush (\textbf{left}) and the Playa (\textbf{right} sites). From top to bottom $\rho$ $u$, $\rho$ $v$,  $\rho$ $w$ and $\rho$ $T$ . }
 	\label{fig:autocorr}
 \end{figure}
 Additionally, further turbulence analysis was performed on the data from the two sites. Figure \ref{fig:u_T} presents the temperature with height (right) of the two sites, while the left column presents (from top to bottom) the mean velocity with height, instantaneous plots of $u^\prime$,  $v^\prime$, and $w^\prime$ with height. The data presented is only of the period of interest. From the temperature profile, we observe a large energy storage (2$^\circ$C) at the surface layer compared to the Playa. In the mean velocity we also observe the impact of the sagebrush on the mean flow, creating a large drag at the surface. Examination of the fluctuations reveals the fluctuations in the mean direction are larger at the Playa, and conversely for the perpendicular wind component. The vertical fluctuations at both sites appear to increase in variance and magnitude with height.  
@@ -189,7 +190,7 @@ Additionally, further turbulence analysis was performed on the data from the two
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{u_T}
-	\caption{}
+	\caption{Sagebrush (red) and Playa (blue) mean velocity (top left), velocity fluctuations (left) and temperature (right) for each height during period of interest, 3pm MST on October 19th, 2012}
 	\label{fig:u_T}
 \end{figure}
 Figure \ref{fig:mom_05} and Figure \ref{fig:mom_20} presents the fluctuation correlations between the velocity components and their respective kinematic heat fluxes (Figure \ref{fig:mom_05} at 0.5 m and Figure \ref{fig:mom_20} at 20 m). At both heights for the velocity correlations the Sagebrush appears to contain larger fluctuations in each variable (larger spread). Suggesting an increase in TKE at this site. As expected at 0.5 m the heat flux correlations have very small velocity fluctuations, however larger temperature fluctuations exist, suggesting the surface heterogeneity influencing the flow. Larger temperature fluctuations are seen at the Sagebrush then the Playa at the 0.5 m, suggesting the impact of temperature heterogeneity is affecting the flow more so at the Sagebrush site than the Playa site. Examination of the 20 m heat flux correlation suggests that the temperature fluctuations at both site match fairly well in magnitude, thus concluding the effect observed at the lower height from the Sagebrush, has been washed out by 20 m. 
@@ -197,13 +198,13 @@ Figure \ref{fig:mom_05} and Figure \ref{fig:mom_20} presents the fluctuation cor
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{momentum_corr_05m}
-	\caption{}
+		\caption{Correlations for momentum and heat flux for 0.5 m during period of interest, 1500-1530 MST on October 19th, 2012}
 	\label{fig:mom_05}
 \end{figure}
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{momentum_corr_20m}
-	\caption{}
+		\caption{Correlations for momentum and heat flux for 20 m during period of interest, 1500-1530 MST on October 19th, 2012}
 	\label{fig:mom_20}
 \end{figure}
 
@@ -212,9 +213,19 @@ Figure \ref{fig:mom_05} and Figure \ref{fig:mom_20} presents the fluctuation cor
 
 \section{Conclusion}
  %main conclusions
+ In an effort the better understand the impact of the surface roughness heterogeneities between the Playa and Sagebrush sites the authors have confined their findings to the following key results. 
+ \begin{itemize}
+ 	\item
+ 	The Sagebrush site has increased dissipation, energy storage, and larger contribution of high frequency eddies as a result of the increased surface roughness.
+ 	\item
+ 	The Playa site demonstrated stronger autocorrelations along all heights.
+ 	\item 
+ 	The impacts of the vegetation at the Sagebrush site diminish by 10 m.
+ \end{itemize}
+ 
  
  %Additional work
- Additionally the authors would like to examine the impact of different de-trending times, such as \cite{} whose analysis utilizes a 5 minute de-trending period for evening transitions. 
+ Additionally the authors would like to examine the impact of different de-trending times, such as \cite{} whose analysis utilizes a 5 minute de-trending period for evening transitions. Furthermore a more in depth analysis utilizing Multi-Resolution Decomposition during the time period  to derive a time and length scale associated with the surface roughness heterogeneity. 
 
 \newpage
 \bibliographystyle{apalike}
