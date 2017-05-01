@@ -301,20 +301,33 @@ playa.oct18.Hz1.Hs(:,z) = Cp * rho * playa.oct18.Hz1.wpTpbar(:,z);
 end
 
 
-%tke
+%%tke
+%20 hz data
+chunk = 30*60*20; %30 minutes @ 20 Hz
+for nn = 1:floor(size(sagebrush.oct18.Hz20.Ux,1)/chunk)
+t_start = 1+(chunk*(nn-1));
+t_end = t_start+chunk;
 
 for z = 1:length(sagebrush_z)
-sagebrush.oct18.Hz20.tke(z) = .5 * mean((sagebrush.oct18.Hz20.Ux_fluct(:,z).*sagebrush.oct18.Hz20.Ux_fluct(:,z)) ...
-                            + (sagebrush.oct18.Hz20.Uy_fluct(:,z).*sagebrush.oct18.Hz20.Uy_fluct(:,z)) ...
-                            + (sagebrush.oct18.Hz20.Uz_fluct(:,z).*sagebrush.oct18.Hz20.Uz_fluct(:,z)),'omitnan');
+sagebrush.oct18.Hz20.tke(nn,z) = .5 * mean((sagebrush.oct18.Hz20.Ux_fluct(t_start:t_end,z).*sagebrush.oct18.Hz20.Ux_fluct(t_start:t_end,z)) ...
+                            + (sagebrush.oct18.Hz20.Uy_fluct(t_start:t_end,z).*sagebrush.oct18.Hz20.Uy_fluct(t_start:t_end,z)) ...
+                            + (sagebrush.oct18.Hz20.Uz_fluct(t_start:t_end,z).*sagebrush.oct18.Hz20.Uz_fluct(t_start:t_end,z)),'omitnan');
+end
 end
 
+%20 hz data
+chunk = 30*60*20; %30 minutes @ 20 Hz
+for nn = 1:floor(size(playa.oct18.Hz20.Ux,1)/chunk)
+t_start = 1+(chunk*(nn-1));
+t_end = t_start+chunk;
+
 for z = 1:length(playa_z)
-playa.oct18.Hz20.tke(z) = .5 * mean((playa.oct18.Hz20.Ux_fluct(:,z).*playa.oct18.Hz20.Ux_fluct(:,z)) ...
-                            + (playa.oct18.Hz20.Uy_fluct(:,z).*playa.oct18.Hz20.Uy_fluct(:,z)) ...
-                            + (playa.oct18.Hz20.Uz_fluct(:,z).*playa.oct18.Hz20.Uz_fluct(:,z)),'omitnan');
+playa.oct18.Hz20.tke(nn,z) = .5 * mean((playa.oct18.Hz20.Ux_fluct(t_start:t_end,z).*playa.oct18.Hz20.Ux_fluct(t_start:t_end,z)) ...
+                            + (playa.oct18.Hz20.Uy_fluct(t_start:t_end,z).*playa.oct18.Hz20.Uy_fluct(t_start:t_end,z)) ...
+                            + (playa.oct18.Hz20.Uz_fluct(t_start:t_end,z).*playa.oct18.Hz20.Uz_fluct(t_start:t_end,z)),'omitnan');
 end
-                        
+end
+
 %L
 kappa = .4;
 for nn = 1:size(sagebrush.oct18.Hz1.wpTpbar,1)
@@ -538,24 +551,60 @@ hold off
 
 %% Hs and TKE
 figure()
-subplot(1,2,1)
-plot(mean(playa.oct18.Hz1.Hs,1),playa_z)
+subplot(2,2,1)
+sdate = datenum('10-18-2012') + (((1:size(playa.oct18.Hz1.Hs,1))-1)/(24*2)); %30 min spacing
 hold on
-plot(mean(sagebrush.oct18.Hz1.Hs,1),sagebrush_z)
+for z = 4:6
+plot(sdate,playa.oct18.Hz1.Hs(:,z))
+end
+ylim([-20 40])
+datetick('x','mm/dd')
 title('Sensible Heat Flux','interpreter','latex','fontsize',25)
-xlabel('$\bar{H_s}$','interpreter','latex','fontsize',20)
-ylabel('z (m)','interpreter','latex','fontsize',20)
-legend('Playa','Sagebrush')
+xlabel('Time (UTC)','interpreter','latex','fontsize',20)
+ylabel('Playa $H_s$ (W/m$^2$)','interpreter','latex','fontsize',20)
+legend('5.3','2.02','0.61')
 hold off
 
-subplot(1,2,2)
-plot(mean(playa.oct18.Hz20.tke,1),playa_z)
+subplot(2,2,3)
+sdate = datenum('10-18-2012') + (((1:size(sagebrush.oct18.Hz1.Hs,1))-1)/(24*2)); %30 min spacing
 hold on
-plot(mean(sagebrush.oct18.Hz20.tke,1),sagebrush_z)
+for z = 3:5
+plot(sdate,sagebrush.oct18.Hz1.Hs(:,z))
+end
+ylim([-20 40])
+datetick('x','mm/dd')
+title('Sensible Heat Flux','interpreter','latex','fontsize',25)
+xlabel('Time (UTC)','interpreter','latex','fontsize',20)
+ylabel('Sagebrush $H_s$ (W/m$^2$)','interpreter','latex','fontsize',20)
+legend('5.87','2.04','0.55')
+hold off
+
+subplot(2,2,2)
+sdate = datenum('10-18-2012') + (((1:size(playa.oct18.Hz20.tke,1))-1)/(24*2)); %30 min spacing
+hold on
+for z = 1:length(playa_z)
+plot(sdate,playa.oct18.Hz20.tke(:,z))
+end
+ylim([0 1])
+datetick('x','mm/dd')
 title('Turbulence Kinetic Energy','interpreter','latex','fontsize',25)
-xlabel('$\bar{TKE}$','interpreter','latex','fontsize',20)
-ylabel('z (m)','interpreter','latex','fontsize',20)
-legend('Playa','Sagebrush')
+xlabel('Time (UTC)','interpreter','latex','fontsize',20)
+ylabel('Playa $TKE$ (J/kg)','interpreter','latex','fontsize',20)
+legend('25.5 m','19.4','10.4','5.3','2.02','0.61')
+hold off
+
+subplot(2,2,4)
+sdate = datenum('10-18-2012') + (((1:size(sagebrush.oct18.Hz20.tke,1))-1)/(24*2)); %30 min spacing
+hold on
+for z = 1:length(sagebrush_z)
+plot(sdate,sagebrush.oct18.Hz20.tke(:,z))
+end
+ylim([0 1])
+datetick('x','mm/dd')
+title('Turbulence Kinetic Energy','interpreter','latex','fontsize',25)
+xlabel('Time (UTC)','interpreter','latex','fontsize',20)
+ylabel('Sagebrush $TKE$ (J/kg)','interpreter','latex','fontsize',20)
+legend('18.6 m','10.15','5.87','2.04','0.55')
 hold off
 
 %% 2. PDF CDF
