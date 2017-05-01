@@ -211,12 +211,12 @@ Figure \ref{fig:mom_05} and Figure \ref{fig:mom_20} presents the fluctuation cor
 
 %Matt talks about part 4 and 5
 \subsection{Dissipation}
-Taylor's Frozen hypothesis is utilized to determine the dissipatin rate and Kolmogorv length of the turbulent eddies. Taylor hypothesized in 1938 that for special cases turbulence "may be considered "frozen" as it advects past a sensor."\cite{Stull} This allows for turbulent scales to be determined by a time analysis of the mean velocity. If the mean velocity is much greater than the turbulent scales, Taylor put forth that " and eddy of diameter &\lambda$ is advected at mean wind speed M, then the time period P for it to pass by a stationary sensor is given by P = $\lambda$/M."\cite{Stull} If an eddy does not change in time as it is advected past the sensor then some variable, ie. temperature, velocity, etc. on the leading edge of the edyy vs the same variable on the trailing edge of the eddy can be considered frozen, and thus the time and spatial components of variation in the variable may be correlated as $\frac{\partial \zeta}{\partial x_D}$ where x_D is parallel to the mean wind. Taylor's hypothesis holds when $\frac{d\zeta}{dt} = 0$. Using the definition of total derivative this yields
+Taylor's Frozen hypothesis is utilized to determine the dissipatin rate and Kolmogorv length of the turbulent eddies. Taylor hypothesized in 1938 that for special cases turbulence "may be considered "frozen" as it advects past a sensor."\cite{Stull} This allows for turbulent scales to be determined by a time analysis of the mean velocity. If the mean velocity is much greater than the turbulent scales, Taylor put forth that " and eddy of diameter $\lambda$ is advected at mean wind speed M, then the time period P for it to pass by a stationary sensor is given by P = $\lambda$/M."\cite{Stull} If an eddy does not change in time as it is advected past the sensor then some variable, ie. temperature, velocity, etc. on the leading edge of the eddy vs the same variable on the trailing edge of the eddy can be considered frozen, and thus the time and spatial components of variation in the variable may be correlated as $\frac{\partial \zeta}{\partial x_D}$ where $x_D$ is parallel to the mean wind. Taylor's hypothesis holds when $\frac{d\zeta}{dt} = 0$. Using the definition of total derivative this yields
 \begin{equation} \label{eq:taylor}
 \frac{\partial \zeta}{\partial t} = -U\frac{\partial \zeta}{\partial x} - V\frac{\partial \zeta}{\partial y} - W\frac{\partial \zeta}{\partial z}
 \end{equation}
 
-Utilizing Taylor's Hypothesis the Dissipation Rate (m^2/s^3is calculated using 
+Utilizing Taylor's Hypothesis the Dissipation Rate (m$^2$/s$^3$is calculated using 
 \begin{equation} \label{eq:diss}
 \epsilon (\zeta ,t) = 2\nu \int_{\zeta}^{\infty} \zeta '^2E(\zeta ',t)d\zeta 
 \end{equation}
@@ -227,7 +227,7 @@ and the Kolmogorov length (mm)is calculated as
 
 The dissipation rate and Kolmogorov length were calculated over several 30 minute time periods and compared for the Playa and Sagebrush sites at the 10 m height and are presented in table \ref{tbl:diss}. 
 \begin{table}[h] \label{tbl:diss}
-\captionof{table}{Dissipation Rate and Kolmogorov Length}
+%\captionof{table}{Dissipation Rate and Kolmogorov Length}
 \begin{minipage}[b]{0.45\linewidth}
 \centering
 \begin{tabular}{|c||c|c|}
@@ -241,6 +241,8 @@ The dissipation rate and Kolmogorov length were calculated over several 30 minut
 	7:00 am & 0.00077 & 0.00055 \\
 	\hline
 \end{tabular}
+\caption{Dissipation Rate and Kolmogorov Length}
+
 \end{minipage}%
 \begin{minipage}[b]{0.45\linewidth}
 \centering
@@ -297,7 +299,7 @@ The turbulence spectra was also calculated at the different heights of the tower
 	\caption{Turbulence spectra for uu at 2 m height}
 	\label{fig:S_uu}
 \end{figure}
-At the 2 m height the vegetation at Sagebrush causes enough surface roughness that the assumptions we use for Taylor's hypothesis and the Kolmogorov energy cascade do not hold; namely that z << z_0 is not true. 
+At the 2 m height the vegetation at Sagebrush causes enough surface roughness that the assumptions we use for Taylor's hypothesis and the Kolmogorov energy cascade do not hold; namely that $z << z_0$ is not true. 
 
 The cospectra for the variables of interest are also plotted (figures \ref{fig:S_uw10m} through \ref{fig:S_vw}) and show the same trends as the spectra. This is expected as Kolmogorov's hypothesis holds that at smal scales turbulence may be considered isotropic.\cite{Pope}
 \begin{figure}[h]
@@ -308,7 +310,7 @@ The cospectra for the variables of interest are also plotted (figures \ref{fig:S
 \end{figure}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\textwidth]{S_vw10m.jpg}
+	\includegraphics[width=\textwidth]{S_vw10.jpg}
 	\caption{Turbulence spectra for vw}
 	\label{fig:S_vw10m}
 \end{figure}
