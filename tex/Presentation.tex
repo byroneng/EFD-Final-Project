@@ -1,426 +1,241 @@
-% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
-%
-% In principle, this file can be redistributed and/or modified under
-% the terms of the GNU Public License, version 2.
-%
-% However, this file is supposed to be a template to be modified
-% for your own needs. For this reason, if you use this file as a
-% template and not specifically distribute it as part of a another
-% package/program, I grant the extra permission to freely copy and
-% modify this file as you see fit and even to delete this copyright
-% notice. 
-
-\documentclass{beamer}
-\usepackage{subfigure}
-\usepackage{subcaption}
+\documentclass[]{article}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{natbib}
 \usepackage{wrapfig}
 
 
-% There are many different themes available for Beamer. A comprehensive
-% list with examples is given here:
-% http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
-% You can uncomment the themes below if you would like to use a different
-% one:
-%\usetheme{AnnArbor}
-%\usetheme{Antibes}
-%\usetheme{Bergen}
-%\usetheme{Berkeley}
-%\usetheme{Berlin}
-%\usetheme{Boadilla}
-%\usetheme{boxes}
-\usetheme{CambridgeUS}
-%\usetheme{Copenhagen}
-%\usetheme{Darmstadt}
-%\usetheme{default}
-%\usetheme{Frankfurt}
-%\usetheme{Goettingen}
-%\usetheme{Hannover}
-%\usetheme{Ilmenau}
-%\usetheme{JuanLesPins}
-%\usetheme{Luebeck}
-%\usetheme{Madrid}
-%\usetheme{Malmoe}
-%\usetheme{Marburg}
-%\usetheme{Montpellier}
-%\usetheme{PaloAlto}
-%\usetheme{Pittsburgh}
-%\usetheme{Rochester}
-%\usetheme{Singapore}
-%\usetheme{Szeged}
-%\usetheme{Warsaw}
 
-\title{Impacts of Sagebrush Vegetation }
+%plots path
+\graphicspath{ {plots/} }
 
-% A subtitle is optional and this may be deleted
-\subtitle{in a Desert Climate on the Atmospheric Boundary Layer}
 
-\author{B. Eng, M. Moody, and T. Morrison}
+\title{Impacts of sagebrush vegetation in a desert climate on the atmospheric boundary layer}
+\author{Byron Eng, Matthew Moody, and Travis Morrison}
 
-% - Give the names in the same order as the appear in the paper.
-% - Use the \inst{?} command only if the authors have different
-%   affiliation.
-
-\institute[University of Utah] % (optional, but mostly needed)
-{
-%  \inst{1}%
-  Department of Mechanical Engineering\\
-  University of Utah}
-%  \and
-%  \inst{2}%
-%  Department of Theoretical Philosophy\\
-%  University of Elsewhere}
-% - Use the \inst command only if there are several affiliations.
-% - Keep it simple, no one is interested in your street address.
-
-\date{ME EN 7710 Final Project, 2017}
-% - Either use conference name or its abbreviation.
-% - Not really informative to the audience, more for people (including
-%   yourself) who are reading the slides online
-
-%\subject{Theoretical Computer Science}
-% This is only inserted into the PDF information catalog. Can be left
-% out. 
-
-% If you have a file called "university-logo-filename.xxx", where xxx
-% is a graphic format that can be processed by latex or pdflatex,
-% resp., then you can add a logo as follows:
-
-% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
-% \logo{\pgfuseimage{university-logo}}
-
-% Delete this, if you do not want the table of contents to pop up at
-% the beginning of each subsection:
-\AtBeginSubsection[]
-{
-  \begin{frame}<beamer>{Outline}
-    \tableofcontents[currentsection,currentsubsection]
-  \end{frame}
-}
-
-% Let's get started
 \begin{document}
 
-\begin{frame}
-  \titlepage
-\end{frame}
+\maketitle
 
-\begin{frame}{Outline}
-  \tableofcontents
-  % You might wish to add the option [pausesections]
-\end{frame}
-
-% Section and subsections will appear in the presentation overview
-% and table of contents.
-
-%%%%%%%%%%%%%%%%%%%%%%% Byron presents intro & part 1 %%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{abstract}
+%XXX
+%\end{abstract}
 
 \section{Introduction}
+The Mountain Terrain Atmospheric Modeling and Observations (MATERHORN, \citealt{MATERHORN}) Program provides an array of atmospheric observations suitable to investigate and advance many areas of scientific interest. Near-surface flow in areas with vegetation and complex terrain remains an area of weakness in current Numerical Weather Prediction (NWP) models, turbulence closure models, and boundary layer parameterizations \citep{MATERHORN}. In this study, boundary layer characteristics from two MATERHORN observation sites (Sagebrush and Playa) are investigated. The contrast in surface roughness between the two sites are expected to affect dissipation, mixing, and heat flux.
 
-\subsection{Motivation}
-\begin{frame}{Motivation}
-
-
-	\begin{itemize}
-	\item {Benefits of understanding turbulence}
-		\begin{itemize}
-		\item {NWP}
-		\item {Industry}
-		\item {Aviation}
-		\end{itemize}
-	\item {Modelling turbulence}
-		\begin{itemize}
-		\item {Turbulence is random -- difficult to model}
-		\item {More difficult around complex terrain \& vegetation}
-		\item {Current methods inaccurate in some environments}
-		\end{itemize}
-	\end{itemize}
-	\begin{figure}
-		\includegraphics[scale=.4]{pictures/canopy.jpg}
-\\ \tiny{\textit{Image source: http://www.windlab.com/technology/turbulence}}
-	\end{figure}
-
-
-\end{frame}
-
-\subsection{MATERHORN Data}
-
-\begin{frame}{MATERHORN}{Overview}
-  \begin{itemize}
-  \item {MATERHORN Goals:}
-  	\begin{itemize}
-  	\item {Study limitations of current models in complex terrain}
-  	\item {Improve prediction methods}
-  	\end{itemize}
-  \end{itemize}
-  \begin{figure}
-  \includegraphics[scale=.4]{pictures/complex.jpeg}
-\\  \tiny{\textit{\cite{MATERHORN}}} %I don't know why the citations are messed up
-  \end{figure}
-  \end{frame}
-  
-\begin{frame}{MATERHORN}{Data}
-	\begin{figure}
-	\minipage{0.30\textwidth}
+\begin{figure}[h]
 	\centering
-		\includegraphics[width=\linewidth]{pictures/IMG_5488}
-		\\ Playa
-	\endminipage\hfill
-	\minipage{0.4\textwidth}
-	\centering
-		\includegraphics[width=\linewidth]{pictures/sitemap}
-		\\ \tiny{\textit{\cite{jensen2016observations}}}
-	\endminipage\hfill
-	\minipage{0.30\textwidth}
-	\centering
-		\includegraphics[width=\linewidth]{pictures/IMG_5440}
-		\\ Sagebrush
-	\endminipage\hfill
-	\end{figure}
-\end{frame}
-
-\begin{frame}{MATERHORN}{Data}
-	\begin{itemize}
-	\item Rotated Data
-	\end{itemize}
-	\includegraphics[width=\linewidth]{plots/playarotate}
-\end{frame}
-
-\begin{frame}{MATERHORN}{Data}
-	\begin{itemize}
-	\item Rotated Data
-	\end{itemize}
-	\includegraphics[width=\linewidth]{plots/sagerotate}
-\end{frame}
-
-\begin{frame}{MATERHORN}{Data}
-	\minipage{.5\textwidth}
-	\includegraphics[width=\linewidth]{plots/playawind}
-	\endminipage\hfill
-	\minipage{.5\textwidth}
-	\includegraphics[width=\linewidth]{plots/sagewind}
-	\endminipage\hfill
-\end{frame}
-
-\begin{frame}{MATERHORN}{Analysis}
-	\includegraphics[width=\linewidth]{plots/hstkeimproved}
-\end{frame}
-
-\begin{frame}{MATERHORN}{Analysis}
-	\includegraphics[width=\linewidth]{plots/oblength}
-\end{frame}
-
-%\subsection{sample text}
-%
-%% You can reveal the parts of a slide one at a time
-%% with the \pause command:
-%\begin{frame}{Second Slide Title}
-%  \begin{itemize}
-%  \item {
-%    First item.
-%    \pause % The slide will pause after showing the first item
-%  }
-%  \item {   
-%    Second item.
-%  }
-%  % You can also specify when the content should appear
-%  % by using <n->:
-%  \item<3-> {
-%    Third item.
-%  }
-%  \item<4-> {
-%    Fourth item.
-%  }
-%  % or you can use the \uncover command to reveal general
-%  % content (not just \items):
-%  \item<5-> {
-%    Fifth item. \uncover<6->{Extra text in the fifth item.}
-%  }
-%  \end{itemize}
-%\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%% Travis presents his stuff %%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Analysis}
-%PDFs
-\subsection{Probability Distributions}
-\begin{frame}{Probability Distribution}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{plots/pdf}
-\caption{PDF for velocity and temperature for each height during period of interest, 3pm MST on October 19th, 2012}
-\label{fig:pdf}
+	\includegraphics[width=\textwidth]{playarotatelims}
+	\caption{30-minute block averages of $\bar{u}$, $\bar{v}$, and $\bar{w}$ from the Playa.}
+	\label{fig:playarotate}
 \end{figure}
-\end{frame}
 
-\begin{frame}{Turbulence and Temperature analysis}
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.6\linewidth]{plots/u_T}
-		\caption{Sagebrush (red) and Playa (blue) mean velocity (top left), velocity fluctuations (left) and temperature (right) for each height during period of interest, 3pm MST on October 19th, 2012}
-		\label{fig:pdf}
-	\end{figure}
-\end{frame}
-%Autocorrelation
-\subsection{Autocorrelation}
-\begin{frame}{Autocorrelation}
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.6\linewidth]{plots/auto_corr_fig}
-		\caption{Autocorrelations for velocity and temperature for each height during period of interest, 3pm MST on October 19th, 2012}
-		\label{fig:auto_corr_fig}
-	\end{figure}
-\end{frame}
-%Correlations
-\begin{frame}
-	\begin{figure}[t!]
-        \centering
-		\includegraphics[width=0.7\textwidth]{plots/momentum_corr_05m}
-		\caption{Correlations for momentum and heat flux for 0.5 m during period of interest, 3pm MST on October 19th, 2012}
-	\end{figure}
-\end{frame}
 
-\begin{frame}
-	\begin{figure}[t!]
-		\centering
-		\includegraphics[width=0.7\textwidth]{plots/momentum_corr_20m}
-		\caption{Correlations for momentum and heat flux for 20 m during period of interest, 3pm MST on October 19th, 2012}
-	\end{figure}
-	
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%% Matt Presents his stuff %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Results}
+%background on data 
+Data was provided from the Sagebrush and Playa sites for October 18-19th. Both sites harvested data from meteorological towers equipped with fast response sonic anemometers at multiple heights (18.8 m, 10.15 m, 5.87 m, 2.04 m, and 0.55 m for Sagebrush and 25.5 m,19.4 m, 10.4 m, 5.3 m, 2.02 m, 0.61m for Playa). The variables of interest measured were the three components of velocity (captured at 20 Hz), temperature, relative humidity (captured at 1 Hz). As a post-processing step the analysis,  velocity data components were rotated based on 30-minute block averages, with $u$ denoting the mean wind direction, $v$ as the velocity horizontally perpendicular to the mean flow, $u$, and $w$ as the vertical velocity. Fluctuations from the mean were also calculated from a 30-minute block average. 
 
-\subsection{Dissipation}
-\begin{frame}{Dissipation}
-Dissipation rates calculated at 10 m tower height.
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=\textwidth]{sagerotatelims}
+	\caption{30-minute block averages of $\bar{u}$, $\bar{v}$, and $\bar{w}$ from the Sagebrush site.}
+	\label{fig:sagerotate}
+\end{figure}
+
+
+% Byron talks about part 1)
+$\bar{u}$, $\bar{v}$, and $\bar{w}$ were calculated using the rotated velocity data. $\bar{v}$ and $\bar{w}$ are close to zero (order of $10^{-4}$ and $10^{-5}$, respectively) for the entire observation period (Figures~\ref{fig:playarotate} and~\ref{fig:sagerotate}) verifying that the rotation algorithm performed as expected. Velocity perturbations ($u'$, $v'$, and $w'$) were calculated using these mean values. Temperature perturbations ($T'$) and 30-minute block averages ($\bar{T}$) were also calculated.
+
+
+
+Sensible heat flux ($H_s$) was calculated for both sites using Equation~\ref{eq:hs}. Where $C_p$ is the specific heat of dry air at constant pressure, and $\rho$ is the density of air.
+
+\begin{equation}
+H_s = C_p \cdot \rho \cdot \overline{w'T'}
+\label{eq:hs}
+\end{equation}
+
+Turbulence kinetic energy ($TKE$) was calculated for both sites using Equation~\ref{eq:tke}. 
+
+\begin{equation}
+TKE = \frac{1}{2}~ \overline{u'^2 + v'^2 + w'^2}
+\label{eq:tke}
+\end{equation}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{hstkeimproved}
+	\caption{$H_s$ and $TKE$ comparisons. Values at each height were averaged over the observation period.}
+	\label{fig:hstke}
+\end{figure}
+Figure~\ref{fig:hstke} shows comparisons for $H_s$ and $TKE$ at both sites. Vegetation at the Sagebrush site appears to inhibit sensible heat flux at heights below 2m, indicating surface heat storage induced by vegetation. Sagebrush near-surface $TKE$ also appears inhibited by vegetation which is compensated by a sharp $TKE$ increase just above the surface. The Playa site shows a more uniform distribution of $TKE$ and $H_s$ at all observed heights.
+
+\begin{equation}
+L = \frac{u_*}{\kappa~ \overline{w'T'}}
+\label{eq:L}
+\end{equation}
+
+Equation~\ref{eq:L} shows the calculation used for Obukhov length ($L$), where $\kappa$ is the Kolmogorov constant (assumed equal to 0.4), and $u_* = \sqrt[4]{\overline{u'w'}^2 + \overline{v'w'}^2}$. The time series of $L$ (Figure~\ref{fig:L}) show that the Playa had more near-surface instability during the observation period. However, approximately 2 meters above the surface $L$ at the Playa remained near zero for the majority of the observation period while $L$ fluctuated between positive and negative with greater amplitude at the Sagebrush site. 
+
+
+
+%I don't think these fit in anywhere, but if we can find a way to use them that would be cool!
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=\textwidth]{playawind}
+%	\caption{Wind speed and wind rose for the Playa. Wind rose wedge size shows the frequency of datapoints from each direction.}
+%	\label{fig:playawind}
+%\end{figure}
+%
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=\textwidth]{sagewind}
+%	\caption{Wind speed and wind rose for the Sagebrush site. Wind rose wedge size shows the frequency of datapoints from each direction.}
+%	\label{fig:sagewind}
+%\end{figure}
+
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{oblength}
+	\caption{Obukhov length comparison. Mean Obukhov length plotted at each height (\textbf{left}), and time series (\textbf{right}) for both sites. Time series data were smoothed, giving little weight to outliers, using a variation of Loess Smoothing.}
+	\label{fig:L}
+\end{figure}
+
+
+
+%Part 2 and 3~ Travis
+To better understand the impacts of vegetation on boundary layer flow, examination of a highly convective time, 1500-1530 MST (2100-2130 UCT), was further analyzed. Characteristics of this period include a mean wind speed and direction of.... .
+ 
+The Probability Distribution Function (PDF) for this time period was calculated for each velocity component and temperature at all heights (Figure \ref{fig:pdf}). The largest contrast between the two sites exists between the mean wind velocity component and the temperature. Beginning with $u$ at the sagebrush site the velocity distribution's mean value shifts towards larger values with height, while at the Playa a more uniformed mean velocity is maintained. Additionally, insightful differences between the temperature PDF's between the two sites is observed. At the Sagebrush site, the 0.55 m and 2.04 m sonics report much larger mean temperature values ($\sim$19.5$^\circ$ C) than the other heights ($\sim$16.5$^\circ$ C) , while at the Playa site, the temperature varies less with height ($\sim$ 15-16.5 $^\circ$ C). Note at the Sagebrush site the temperature PDF at 0.55 m shows the largest variance. Low near surface velocities due to the vegetation at Sagebrush decrease convection, hence increasing energy storage within this near surface layer, resulting in higher near-surface temperatures.  
+
+%plot PDFs
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{pdf}
+	\caption{Collection of probability distributions from the Sagebrush (\textbf{left}) and the Playa (\textbf{right} sites). From top to bottom PDF $u$, PDF $v$,  PDF $w$ and PDF $T$ . }
+	\label{fig:pdf}
+\end{figure}
+Table \ref{tab:kurt_sage} and Table \ref{tab:kurt_playa} present the kurtosis and skewness with height of velocity and temperature. The red and blue color boxes correlate to the near surface $u$ velocity at both sites. At the Sagebrush the skewness nears 0 at the surface, increasing with height. While the kurtosis remains less than 3. At the Playa, there is a positive skew near the surface on the mean wind direction, which decreases with height. A decreasing kurtosis in the same signal at the Playa is also observed.
+%Create table of Skewness and Kurtosis
 \begin{table}
-\begin{minipage}[b]{0.45\linewidth}
-\centering
-\begin{tabular}{| p || p | p |}
-	\hline
-	\multicolumn{3}{|c|}{Dissipation Rate} \\
-	\hline
-	& Playa & Sagebrush \\
-	\hline
-	6:00 am & 0.0019 & 0.00035 \\
-	6:30 am & 0.0021 & 0.0011 \\
-	7:00 am & 0.00077 & 0.00055 \\
-	\hline
+\begin{tabular}{ |p{1cm}|p{2cm}|p{1cm}|p{1cm}|p{1cm}| p{1.5cm}|}
+
+		\hline
+		\multicolumn{6}{|c|}{Sagebrush} \\
+		\hline\hline
+		z (m) & Statistic & u &  v & w & T\\
+		\hline
+		18.6 & Kurtosis & 2.3731 & 3.1820 & 3.6346&  1.6588\\
+		&Skewness & 0.3067 & 0.2446 & 0.8532 & -0.3490\\
+		\hline
+		10.15 & Kurtosis & 2.4933 & 3.4515 & 2.8027 &1.8469 \\
+		&Skewness & 0.1651 & 0.1227 & 0.3879& -0.5126\\
+        \hline
+       	5.87 & Kurtosis & 2.6679 & 3.2820 & 3.8053 &2.0491 \\
+       	&Skewness & 0.2694 & 0.1717 & 0.5359 & -0.6396\\
+       	\hline
+   		2.04 & Kurtosis & \cellcolor{red!25} 2.6868 & 3.6466  & 3.3045 & 2.0662  \\
+   		&Skewness & \cellcolor{blue!25} 0.1876 & 0.3174 & 0.4101& -0.4458\\
+   		\hline
+		0.55 & Kurtosis & \cellcolor{red!25} 2.6739 & 3.1869 & 3.8168  & 2.4663\\
+		&Skewness &\cellcolor{blue!25} 0.0655 & 0.3693 & 0.3859&0.7037\\
+		\hline
+		
 \end{tabular}
-\end{minipage}%
-\begin{minipage}[b]{0.45\linewidth}
-\centering
-\begin{tabular}{| p || p | p |}
-	\hline
-	\multicolumn{3}{|c|}{Kolmogorov Length} \\
-	\hline
-	& Playa & Sagebrush \\
-	\hline
-	6:00 am & 1.55 mm & 2.36 \\
-	6:30 am & 1.51 & 1.79 \\
-	7:00 am & 1.93 & 2.11 \\
-	\hline
-\end{tabular}
-\end{minipage}%
+\label{tab:kurt_sage}
+\caption{Skewness and kurtosis values for the Sagebrush site on October 19th from 1500-1530 MST. }
 \end{table}
-\end{frame}
 
-\subsection{Turbulence Spectra}
-\begin{frame}{Turbulence Spectra 2 m}
-Turbulence Spectra at 2 m tower height.
+\begin{table}
+\begin{tabular}{ |p{1cm}|p{1.5cm}|p{1cm}|p{1.25cm}|p{1cm}| p{1.25cm}|}
+	\hline
+	\multicolumn{6}{|c|}{Playa} \\
+	\hline\hline
+	z (m) & Statistic & u &  v & w & T\\
+	\hline
+	25.5 & Kurtosis & 2.1075 & 2.5910 & 3.5269 &  2.2656\\
+	&Skewness & 0.1212 & -0.2004 & 0.7672 & 0.5295\\
+	\hline
+	19.4 & Kurtosis & 2.2519 & 2.8332 & 3.4123 &1.6080 \\
+	&Skewness & 0.2287 & -0.2862 & 0.7324 & 0.1421\\
+	\hline
+	10.4 & Kurtosis & 2.8320 & 1.9469 & 3.0079 &4.6 \\
+	&Skewness & 0.3884 & 0.1464 & 0.3786 &1.2276\\
+	\hline
+	5.3 & Kurtosis & 2.9033 & 2.1528  & 3.1285 & 3.2123  \\
+	&Skewness & 0.1862 & 0.1298 & 0.4560 & 0.9190\\
+	\hline
+	2.02 & Kurtosis &\cellcolor{red!25} 3.0038 & 2.0993 & 3.2620  & 2.3460\\
+	&Skewness & \cellcolor{blue!25} 0.3980 & -0.0969 & 0.4160 & 0.6531\\
+	\hline
+	0.61 & Kurtosis & \cellcolor{red!25} 3.1414 & 1.9599 & 3.3634  & 2.3473\\
+	&Skewness & \cellcolor{blue!25} 0.5253 & -0.1403 & 0.2770 &0.6531\\
+	\hline
+\end{tabular}
+\label{tab:kurt_playa}
+\caption{Skewness and kurtosis values for the Playa site on October 19th from 1500-1530 MST. }
+\end{table}
+Figure \ref{fig:cdf} presents the Cumulative Distribution Function (CDF). Focusing on the third row (CDF $w$) one can now see of the increased distribution of vertical velocities with height at both heights. This is due to the convective nature of the period of interest. Figure \ref{fig:autocorr} presents the autocorrelation function for the velocity components and the temperature at both sites. The autocorrelation was computed for the 30 minutes of interest, 15 minutes is presented. $u$, $v$, and $T$ show fairly linearly decays in time, while $w$ decays rapidly to 0. Interesting features in Figure \ref{fig:autocorr} are seen in the autocorrelation of $u$ at the Sagebrush and Playa. At the Sagebrush we observe a more rapid decay of correlation at the lower heights, while at the Playa, all heights share the same correlation with time (decrease at the same rate). 
+%plot CDFs
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth]{plots/S_uu.png}
+\includegraphics[width=\textwidth]{cdf}
+	\caption{Collection of cumulative distributions from the Sagebrush (\textbf{left}) and the Playa (\textbf{right} sites). From top to bottom CDF $u$, CDF $v$,  CDF $w$ and CDF $T$ . }
+\label{fig:cdf}
 \end{figure}
-\end{frame}
-
-\begin{frame}{Turbulence Spectra 10 m}
-Turbulence Spectra at 10 m tower height.
+%plot Autocorr
 \begin{figure}
-\centering
-\includegraphics[width=\linewidth]{plots/S_uu10m.jpg}
+	\centering
+	\includegraphics[width=\textwidth]{auto_corr_fig}
+	\caption{Collection of autocorrelations from the Sagebrush (\textbf{left}) and the Playa (\textbf{right} sites). From top to bottom $\rho$ $u$, $\rho$ $v$,  $\rho$ $w$ and $\rho$ $T$ . }
+	\label{fig:autocorr}
 \end{figure}
-\end{frame}
-
-\begin{frame}{Turbulence Spectra}
-Differences in turbulence spectra and Kolmogorov lengths for tower heights at Sagebrush site.
-\begin{itemize}
-\item{Kolmogorov Lengths}
-	\begin{itemize}
-	\item{2 m & $\leftarrow$ Length Scale = 0.06 mm}
-	\item{10 m &$\leftarrow$ Length Scale = 2.11 mm}
-	\end{itemize}
-\item{Dissipation Rate}
-	\begin{itemize}
-	\item{2 m &$\leftarrow$ Dissipation Rate $\approx$ 800}
-	\item{10 m &$\leftarrow$ Dissipation Rate = 0.0015}
-	\end{itemize}
-\item{Turbulence Cascade} 
-\end{itemize}
-\end{frame}
-
-
-% Placing a * after \section means it will not show in the
-% outline or table of contents.
-\section*{Summary}
-
-\begin{frame}{Summary}
-	Contrasting surface heterogeneities at the Playa and Sagebrush sites were examined by study of the flow near the surface. Noticeable differences from the study are:  
-  \begin{itemize}
-  \item
-    The Sagebrush site \alert{has increased dissipation, energy storage, and larger contribution of high frequency eddies} as a result of the increased surface roughness.
-  \item
-    The Playa site demonstrated \alert{stronger autocorrelations along all heights}.
-  \item 
-	  The impacts of the vegetation at the Sagebrush site \alert{diminish by 10 m.}
-  \end{itemize}
-  
-  \begin{itemize}
-  \item
-    Outlook
-    \begin{itemize}
-    \item
-      A Multi-Resolution Decomposition should be performed to determine correct detrending time and to further understand dominate length scales. 
-    \item
-      Begin to include data which includes spatial information, such as thermal imagery, LEMs, soil moisture measurements.  
-    \end{itemize}
-  \end{itemize}
-\end{frame}
+Additionally, further turbulence analysis was performed on the data from the two sites. Figure \ref{fig:u_T} presents the temperature with height (right) of the two sites, while the left column presents (from top to bottom) the mean velocity with height, instantaneous plots of $u^\prime$,  $v^\prime$, and $w^\prime$ with height. The data presented is only of the period of interest. From the temperature profile, we observe a large energy storage (2$^\circ$C) at the surface layer compared to the Playa. In the mean velocity we also observe the impact of the sagebrush on the mean flow, creating a large drag at the surface. Examination of the fluctuations reveals the fluctuations in the mean direction are larger at the Playa, and conversely for the perpendicular wind component. The vertical fluctuations at both sites appear to increase in variance and magnitude with height.  
+%plot u mean, T mean u' v' and w'
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{u_T}
+	\caption{Sagebrush (red) and Playa (blue) mean velocity (top left), velocity fluctuations (left) and temperature (right) for each height during period of interest, 3pm MST on October 19th, 2012}
+	\label{fig:u_T}
+\end{figure}
+Figure \ref{fig:mom_05} and Figure \ref{fig:mom_20} presents the fluctuation correlations between the velocity components and their respective kinematic heat fluxes (Figure \ref{fig:mom_05} at 0.5 m and Figure \ref{fig:mom_20} at 20 m). At both heights for the velocity correlations the Sagebrush appears to contain larger fluctuations in each variable (larger spread). Suggesting an increase in TKE at this site. As expected at 0.5 m the heat flux correlations have very small velocity fluctuations, however larger temperature fluctuations exist, suggesting the surface heterogeneity influencing the flow. Larger temperature fluctuations are seen at the Sagebrush then the Playa at the 0.5 m, suggesting the impact of temperature heterogeneity is affecting the flow more so at the Sagebrush site than the Playa site. Examination of the 20 m heat flux correlation suggests that the temperature fluctuations at both site match fairly well in magnitude, thus concluding the effect observed at the lower height from the Sagebrush, has been washed out by 20 m. 
+%correlation plots
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{momentum_corr_05m}
+		\caption{Correlations for momentum and heat flux for 0.5 m during period of interest, 1500-1530 MST on October 19th, 2012}
+	\label{fig:mom_05}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{momentum_corr_20m}
+		\caption{Correlations for momentum and heat flux for 20 m during period of interest, 1500-1530 MST on October 19th, 2012}
+	\label{fig:mom_20}
+\end{figure}
 
 
+%Matt talks about part 4 and 5
 
-% All of the following is optional and typically not needed. 
-%\appendix
-%\section<presentation>*{\appendixname}
-%\subsection<presentation>*{For Further Reading}
+\section{Conclusion}
+ %main conclusions
+ In an effort the better understand the impact of the surface roughness heterogeneities between the Playa and Sagebrush sites the authors have confined their findings to the following key results. 
+ \begin{itemize}
+ 	\item
+ 	The Sagebrush site has increased dissipation, energy storage, and larger contribution of high frequency eddies as a result of the increased surface roughness.
+ 	\item
+ 	The Playa site demonstrated stronger autocorrelations along all heights.
+ 	\item 
+ 	The impacts of the vegetation at the Sagebrush site diminish by 10 m.
+ \end{itemize}
+ 
+ 
+ %Additional work
+ Additionally the authors would like to examine the impact of different de-trending times, such as \cite{} whose analysis utilizes a 5 minute de-trending period for evening transitions. Furthermore a more in depth analysis utilizing Multi-Resolution Decomposition during the time period  to derive a time and length scale associated with the surface roughness heterogeneity. 
 
-%\begin{frame}[allowframebreaks]
- % \frametitle<presentation>{References}
-    
-%\bibliography{references}
-%\bibliographystyle{apalike}    
-%  \begin{thebibliography}{10}
-%    
-%  \beamertemplatebookbibitems
-%  % Start with overview books.
-%
-%  \bibitem{Author1990}
-%    A.~Author.
-%    \newblock {\em Handbook of Everything}.
-%    \newblock Some Press, 1990.
-% 
-%    
-%  \beamertemplatearticlebibitems
-%  % Followed by interesting articles. Keep the list short. 
-%
-%  \bibitem{Someone2000}
-%    S.~Someone.
-%    \newblock On this and that.
-%    \newblock {\em Journal of This and That}, 2(1):50--100,
-%    2000.
-%  \end{thebibliography}
-%\end{frame}
-
-
-
+\newpage
+\bibliographystyle{apalike}
+\bibliography{references}
 \end{document}
-
-
