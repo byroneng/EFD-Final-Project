@@ -47,7 +47,7 @@ TKE = \frac{1}{2}~ \overline{u'^2 + v'^2 + w'^2}
 Figure~\ref{fig:hstke} shows comparisons for $H_s$ and $TKE$ at both sites. Vegetation at the Sagebrush site appears to inhibit sensible heat flux at heights below 2 m, indicating surface heat storage induced by vegetation. Sagebrush near-surface $TKE$ also appears inhibited by vegetation which is compensated by a sharp $TKE$ increase just above the surface. The Playa site shows a more uniform distribution of $TKE$ and $H_s$ at all observed heights.
 
 \begin{equation}
-L = \frac{u_*}{\kappa~ \overline{w'T'}}
+L = -\frac{u_*^3}{\kappa~ \overline{w'b'}}
 \label{eq:L}
 \end{equation}
 
@@ -84,7 +84,7 @@ Equation~\ref{eq:L} shows the calculation used for Obukhov length ($L$), where $
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{hstke}
+	\includegraphics[width=\textwidth]{hstkeimproved}
 	\caption{$H_s$ and $TKE$ comparisons. Values at each height were averaged over the observation period.}
 	\label{fig:hstke}
 \end{figure}
@@ -137,8 +137,8 @@ Table \ref{tab:kurt_sage} and Table \ref{tab:kurt_playa} present the kurtosis an
 		\hline
 		
 \end{tabular}
-\label{tab:kurt_sage}
 \caption{Skewness and kurtosis values for the Sagebrush site on October 19th from 1500-1530 MST. }
+\label{tab:kurt_sage}
 \end{table}
 
 \begin{table}
@@ -167,8 +167,8 @@ Table \ref{tab:kurt_sage} and Table \ref{tab:kurt_playa} present the kurtosis an
 	&Skewness & \cellcolor{blue!25} 0.5253 & -0.1403 & 0.2770 &0.6531\\
 	\hline
 \end{tabular}
-\label{tab:kurt_playa}
 \caption{Skewness and kurtosis values for the Playa site on October 19th from 1500-1530 MST. }
+\label{tab:kurt_playa}
 \end{table}
 Figure \ref{fig:cdf} presents the Cumulative Distribution Function (CDF). Focusing on the third row (CDF $w$) one can now see of the increased distribution of vertical velocities with height at both sites. This is due to the convective nature of the period of interest. Figure \ref{fig:autocorr} presents the autocorrelation function for the velocity components and the temperature at both sites. The autocorrelation was computed for the 30 minutes of interest, 15 minutes is presented. $u$, $v$, and $T$ show fairly linearly decays with time, while $w$ decays rapidly to 0. Interesting features in Figure \ref{fig:autocorr} are seen in the autocorrelation of $u$ at the Sagebrush and Playa. At the Sagebrush we observe a more rapid decay of correlation at the lower heights, while at the Playa, all heights share the same correlation with time (decreasing at similar rates). 
 %plot CDFs
@@ -211,12 +211,12 @@ Figure \ref{fig:mom_05} and Figure \ref{fig:mom_20} presents the fluctuation cor
 
 %Matt talks about part 4 and 5
 \subsection{Dissipation}
-Taylor's Frozen hypothesis is utilized to determine the dissipatin rate and Kolmogorv length of the turbulent eddies. Taylor hypothesized in 1938 that for special cases turbulence "may be considered "frozen" as it advects past a sensor."\cite{Stull} This allows for turbulent scales to be determined by a time analysis of the mean velocity. If the mean velocity is much greater than the turbulent scales, Taylor put forth that " and eddy of diameter $\lambda$ is advected at mean wind speed M, then the time period P for it to pass by a stationary sensor is given by P = $\lambda$/M."\cite{Stull} If an eddy does not change in time as it is advected past the sensor then some variable, ie. temperature, velocity, etc. on the leading edge of the eddy vs the same variable on the trailing edge of the eddy can be considered frozen, and thus the time and spatial components of variation in the variable may be correlated as $\frac{\partial \zeta}{\partial x_D}$ where $x_D$ is parallel to the mean wind. Taylor's hypothesis holds when $\frac{d\zeta}{dt} = 0$. Using the definition of total derivative this yields
+Taylor's Frozen hypothesis is utilized to determine the dissipatin rate and Kolmogorv length of the turbulent eddies. Taylor hypothesized in 1938 that for special cases turbulence "may be considered "frozen" as it advects past a sensor." \citep{Stull} This allows for turbulent scales to be determined by a time analysis of the mean velocity. If the mean velocity is much greater than the turbulent scales, Taylor put forth that "... an eddy of diameter $\lambda$ is advected at mean wind speed M, then the time period P for it to pass by a stationary sensor is given by P = $\lambda$/M." \citep{Stull} If an eddy does not change in time as it is advected past the sensor then some variable, ie. temperature, velocity, etc. on the leading edge of the eddy vs the same variable on the trailing edge of the eddy can be considered frozen, and thus the time and spatial components of variation in the variable may be correlated as $\frac{\partial \zeta}{\partial x_D}$ where $x_D$ is parallel to the mean wind. Taylor's hypothesis holds when $\frac{d\zeta}{dt} = 0$. Using the definition of total derivative this yields
 \begin{equation} \label{eq:taylor}
 \frac{\partial \zeta}{\partial t} = -U\frac{\partial \zeta}{\partial x} - V\frac{\partial \zeta}{\partial y} - W\frac{\partial \zeta}{\partial z}
 \end{equation}
 
-Utilizing Taylor's Hypothesis the Dissipation Rate (m$^2$/s$^3$is calculated using 
+Utilizing Taylor's Hypothesis the Dissipation Rate (m$^2$/s$^3$) is calculated using 
 \begin{equation} \label{eq:diss}
 \epsilon (\zeta ,t) = 2\nu \int_{\zeta}^{\infty} \zeta '^2E(\zeta ',t)d\zeta 
 \end{equation}
@@ -225,10 +225,10 @@ and the Kolmogorov length (mm)is calculated as
 \frac{\nu^3}{\epsilon}^{1/4}*10^3
 \end{equation}
 
-The dissipation rate and Kolmogorov length were calculated over several 30 minute time periods and compared for the Playa and Sagebrush sites at the 10 m height and are presented in table \ref{tbl:diss}. 
-\begin{table}[h] \label{tbl:diss}
+The dissipation rate and Kolmogorov length were calculated over several 30 minute time periods and compared for the Playa and Sagebrush sites at the 10 m height and are presented in Table \ref{tab:diss}. 
+\begin{table}[h] 
 %\captionof{table}{Dissipation Rate and Kolmogorov Length}
-\begin{minipage}[b]{0.45\linewidth}
+\begin{minipage}{0.45\linewidth}
 \centering
 \begin{tabular}{|c||c|c|}
 	\hline
@@ -241,10 +241,9 @@ The dissipation rate and Kolmogorov length were calculated over several 30 minut
 	7:00 am & 0.00077 & 0.00055 \\
 	\hline
 \end{tabular}
-\caption{Dissipation Rate and Kolmogorov Length}
 
 \end{minipage}%
-\begin{minipage}[b]{0.45\linewidth}
+\begin{minipage}{0.45\linewidth}
 \centering
 \begin{tabular}{|c||c|c|}
 	\hline
@@ -258,11 +257,13 @@ The dissipation rate and Kolmogorov length were calculated over several 30 minut
 	\hline
 \end{tabular}
 \end{minipage}%
+\caption{Dissipation Rate and Kolmogorov Length}
+\label{tab:diss}
 \end{table}
 It can be seen that the dissipation rates and Kolmogorov lengths are similar for both sites. When the same quantities are calculated at the 2 m height however the results begin to vary wildly. While the Playa sites have nearly identical values the dissipation rate for the Sagebrush goes to nearly 800 and the Kolmogorov length goes to 0.006 mm. This indicates that vegetation in the Sagebrush site has enough surface roughness to increase the viscous sublayer substantially. 
 
 \subsection{Turbulence Spectra}
-Turbulence Spectra is a tool we use to analyze the energy density at various frequencies. Turbulence can be considered to be composed of various sized eddies which transfer energy in the TKE from larger sized eddies to smaller. Richardson proposed that eddies are unstable and as they break down they "cascade" thier energy to the smaller scales. The smallest ediies eventually disspiate the kinetic energy through viscous forces as there is no coherent scale for eddies to exist at the highest wavenumbers.\cite{Pope} The energy spectra of the variable in question can be broken down into three ranges. An energy producing range, an inertial subrange and a dissipation range. 
+Turbulence Spectra is a tool we use to analyze the energy density at various frequencies. Turbulence can be considered to be composed of various sized eddies which transfer energy in the TKE from larger sized eddies to smaller. Richardson proposed that eddies are unstable and as they break down they "cascade" thier energy to the smaller scales. The smallest eddies eventually disspiate the kinetic energy through viscous forces as there is no coherent scale for eddies to exist at the highest wavenumbers \citep{Pope}. The energy spectra of the variable in question can be broken down into three ranges. An energy producing range, an inertial subrange and a dissipation range. 
 
 The turbulence spectra was calculated for each coordinate direction of wind as well as temperature. Figures \ref{fig:S_uu10m} through \ref{fig:S_tt10m} show each spectra for the associated variable.
 \begin{figure}[h]
@@ -290,7 +291,7 @@ The turbulence spectra was calculated for each coordinate direction of wind as w
 	\label{fig:S_tt10m}
 \end{figure}
 
-For each variable at the 10 m height we see that the Sagebrush site has a larger production range. Both the Sagebrush and Playa sites also follow the classical -5/3 power law in the inertial subrange. For convienence the 5/3 line is plotted as a reference. The Sagebrush site has a steeper slope at higher frequencies. This tells us that the dissipation is higher for Sagebrush. This is expected as it also has higher production, and increased production must lead to increased dissipation in order to conserve energy.
+For each variable at the 10 m height we see that the Sagebrush site has a larger production range. Both the Sagebrush and Playa sites also follow the classical -5/3 power law in the inertial subrange. For convienence the -5/3 line is plotted as a reference. The Sagebrush site has a steeper slope at higher frequencies. This tells us that the dissipation is higher for Sagebrush. This is expected as it also has higher production, and increased production must lead to increased dissipation in order to conserve energy.
 
 The turbulence spectra was also calculated at the different heights of the tower. At the 2 m height we see that the Playa site has very similar characteristics.  However the Sagebrush site does not follow the trend we expect at all. There are no distinct regions in the turbulence spectra for production / dissipation and we see no energy cascade. Figure \ref{fig:S_uu} shows the spectra plotted for uu.
 \begin{figure}[h]
@@ -301,7 +302,7 @@ The turbulence spectra was also calculated at the different heights of the tower
 \end{figure}
 At the 2 m height the vegetation at Sagebrush causes enough surface roughness that the assumptions we use for Taylor's hypothesis and the Kolmogorov energy cascade do not hold; namely that $z << z_0$ is not true. 
 
-The cospectra for the variables of interest are also plotted (figures \ref{fig:S_uw10m} through \ref{fig:S_vw}) and show the same trends as the spectra. This is expected as Kolmogorov's hypothesis holds that at smal scales turbulence may be considered isotropic.\cite{Pope}
+The cospectra for the variables of interest are also plotted (figures \ref{fig:S_uw10m} through \ref{fig:S_vw10m}) and show the same trends as the spectra. This is expected as Kolmogorov's hypothesis holds that at smal scales turbulence may be considered isotropic \citep{Pope}.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{S_uw10m.jpg}
@@ -329,7 +330,7 @@ The cospectra for the variables of interest are also plotted (figures \ref{fig:S
  
  
  %Additional work
- Additionally the authors would like to examine the impact of different de-trending times, such as \cite{} whose analysis utilizes a 5 minute de-trending period for evening transitions. Furthermore a more in depth analysis utilizing Multi-Resolution Decomposition during the time period  to derive a time and length scale associated with the surface roughness heterogeneity. 
+ Additionally the authors would like to examine the impact of different de-trending times, such as \citep{jensen2016observations} whose analysis utilizes a 5 minute de-trending period for evening transitions. Furthermore a more in depth analysis utilizing Multi-Resolution Decomposition during the time period  to derive a time and length scale associated with the surface roughness heterogeneity. 
 
 \newpage
 \bibliographystyle{apalike}
