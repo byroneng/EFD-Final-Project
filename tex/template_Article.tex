@@ -28,7 +28,7 @@ The Mountain Terrain Atmospheric Modeling and Observations (MATERHORN, \citealt{
 Data was provided from the Sagebrush and Playa sites for October 18-19th. Both sites harvested data from meteorological towers equipped with fast response sonic anemometers at multiple heights (18.8 m, 10.15 m, 5.87 m, 2.04 m, and 0.55 m for Sagebrush and 25.5 m,19.4 m, 10.4 m, 5.3 m, 2.02 m, 0.61m for Playa). The variables of interest measured were the three components of velocity (captured at 20 Hz), temperature, relative humidity (captured at 1 Hz). As a post-processing step the analysis,  velocity data components were rotated based on 30-minute block averages, with $u$ denoting the mean wind direction, $v$ as the velocity horizontally perpendicular to the mean flow, $u$, and $w$ as the vertical velocity. Fluctuations from the mean were also calculated from a 30-minute block average. 
 
 % Byron talks about part 1)
-$\bar{u}$, $\bar{v}$, and $\bar{w}$ were calculated using the rotated velocity data. $\bar{v}$ and $\bar{w}$ are close to zero (order of $10^{-4}$ and $10^{-5}$, respectively) for the entire observation period (Figures~\ref{fig:playarotate} and~\ref{fig:sagerotate}) verifying that the rotation algorithm performed as expected. Velocity perturbations ($u'$, $v'$, and $w'$) were calculated using these mean values. 30-minute block averages and perturbations were also calculated for temperature, $T$ (measured at 1 Hz).
+$\bar{u}$, $\bar{v}$, and $\bar{w}$ were calculated using the rotated velocity data. $\bar{v}$ and $\bar{w}$ are close to zero (order of $10^{-4}$ and $10^{-5}$, respectively) for the entire observation period (Figures~\ref{fig:playarotate} and~\ref{fig:sagerotate}) verifying that the rotation algorithm performed as expected. Velocity perturbations ($u'$, $v'$, and $w'$) were calculated using these mean values. Temperature perturbations ($T'$) and 30-minute block averages ($\bar{T}$) were also calculated.
 
 Sensible heat flux ($H_s$) was calculated for both sites using Equation~\ref{eq:hs}. Where $C_p$ is the specific heat of dry air at constant pressure, and $\rho$ is the density of air.
 
@@ -44,7 +44,7 @@ TKE = \frac{1}{2}~ \overline{u'^2 + v'^2 + w'^2}
 \label{eq:tke}
 \end{equation}
 
-Figure~\ref{fig:hstke} shows comparisons for $H_s$ and $TKE$ at both sites. Vegetation at the Sagebrush site appears to inhibit sensible heat flux at all observed heights, indicating surface heat storage induced by vegetation. Sagebrush near-surface $TKE$ also appears inhibited by vegetation which is compensated by a sharp $TKE$ increase just above the surface. The Playa site shows a more uniform distribution of $TKE$ at all observed heights.
+Figure~\ref{fig:hstke} shows comparisons for $H_s$ and $TKE$ at both sites. Vegetation at the Sagebrush site appears to inhibit sensible heat flux at heights below 2m, indicating surface heat storage induced by vegetation. Sagebrush near-surface $TKE$ also appears inhibited by vegetation which is compensated by a sharp $TKE$ increase just above the surface. The Playa site shows a more uniform distribution of $TKE$ and $H_s$ at all observed heights.
 
 \begin{equation}
 L = \frac{u_*}{\kappa~ \overline{w'T'}}
